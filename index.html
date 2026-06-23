@@ -1,0 +1,2803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>STD Assurance – Audit Roadmap 2026/2027 v2.0</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f5f7;color:#1a1a2e;font-size:13px}
+/* ===== HEADER ===== */
+.hdr{background:linear-gradient(135deg,#FFE600,#FFD000);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.hdr-brand{display:flex;align-items:center;gap:10px}
+.hdr-logo{width:34px;height:34px;background:#1a1a2e;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#FFE600;font-weight:900;font-size:13px}
+.hdr-title h1{font-size:17px;font-weight:800;color:#1a1a2e}
+.hdr-title p{font-size:11px;color:#555}
+.hdr-meta{font-size:11px;color:#555;display:flex;gap:12px;align-items:center}
+/* ===== KPI BAR ===== */
+.kpi-bar{background:#fff;padding:10px 20px;display:flex;gap:16px;flex-wrap:wrap;border-bottom:2px solid #e5e7eb;align-items:center}
+.kpi{display:flex;flex-direction:column;align-items:center;min-width:58px}
+.kpi-v{font-size:20px;font-weight:800;line-height:1}
+.kpi-l{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-top:2px;text-align:center}.kpi-sub{font-size:9px;color:#aaa;margin-top:1px;text-align:center;font-weight:600}
+.kpi-sep{width:1px;height:32px;background:#e5e7eb}
+/* ===== TAB BAR ===== */
+.tab-bar{background:#fff;padding:0 20px;display:flex;border-bottom:2px solid #e5e7eb;overflow-x:auto}
+.tab{padding:10px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:#888;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s}
+.tab:hover:not(.active){color:#555}
+.tab.active{color:#1a1a2e;border-bottom-color:#FFE600}
+/* ===== SECTION ===== */
+.section{display:none}.section.active{display:block}
+/* ===== GANTT ===== */
+.gantt-wrap{overflow-x:auto;overflow-y:hidden}
+.gantt-sticky{position:sticky;top:0;z-index:20;display:flex;background:#f8f9fa;border-bottom:2px solid #e5e7eb;min-width:1100px}
+.g-left{min-width:320px;width:320px;padding:8px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#666;border-right:2px solid #e5e7eb;flex-shrink:0}
+.g-months{flex:1;display:flex;overflow:hidden;position:relative}
+.month-h-top{text-align:center;font-size:10px;font-weight:800;color:#555;padding:8px 6px;border-right:2px solid #d0d0d0;overflow:hidden;white-space:nowrap;text-transform:uppercase;letter-spacing:.4px;background:#eef0f3;flex-shrink:0;min-width:80px}
+.month-h-top.y27{background:#EEF2FF;color:#4C3DC4;border-right-color:#b0b8e8}
+.month-h-top.cur{background:#FFF9C4;color:#E65100;border-right-color:#FFD54F;font-weight:900}
+.week-h{text-align:center;font-size:9px;font-weight:600;color:#666;padding:4px 0 3px;border-right:1px solid #e0e0e0;overflow:hidden;white-space:nowrap;flex-shrink:0;background:#fdfdfd}
+.week-h:empty{background:#f8f9fa;border-right:1px solid #ececec}
+.week-h.cur-wk{background:#FFF9C4;color:#E65100;font-weight:800;border-right:1px solid #FFCC80}
+.gantt-hdr-wrap{display:flex;flex-direction:column;border-bottom:2px solid #e5e7eb}
+.gantt-hdr-row{display:flex}
+.g-left-hdr{min-width:320px;width:320px;border-right:2px solid #e5e7eb;padding:0 10px;display:flex;align-items:center;font-size:10px;font-weight:700;color:#666}
+.g-months-tl{flex:1;display:flex;position:relative;overflow:hidden}
+/* checkbox filter labels */
+.fcb{display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;padding:2px 7px;border-radius:10px;transition:background .1s;white-space:nowrap;border:1.5px solid transparent}
+.fcb:hover{background:#f4f5f7}
+.fcb input{width:13px;height:13px;accent-color:#4285F4;cursor:pointer}
+.fcb.checked{border-color:#4285F4;background:#EEF4FF}
+.g-row{display:flex;border-bottom:1px solid #eaecef;min-height:40px;transition:background .1s}
+.g-row:hover{background:#f6f8ff}
+.g-row.filtered-out{display:none}
+.g-info{min-width:320px;width:320px;padding:5px 10px;border-right:2px solid #e5e7eb;display:flex;align-items:center;gap:7px;flex-shrink:0}
+.g-flag{font-size:14px;flex-shrink:0}
+.g-code{font-weight:800;font-size:11px;color:#1a1a2e;white-space:nowrap}
+.g-city{font-size:10px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px}
+.badges{display:flex;gap:3px;flex-wrap:nowrap;align-items:center}
+.b{padding:1px 5px;border-radius:8px;font-size:8px;font-weight:700;white-space:nowrap}
+.b-full{background:#D9EAD3;color:#1E5631}
+.b-mstd{background:#FCE5CD;color:#7F4400}
+.b-mintra{background:#D0E4F5;color:#0D3D6B}
+.b-ds{background:#EAD1DC;color:#5B1A3A}
+.b-late{background:#FDECEA;color:#B71C1C}
+.b-ok{background:#E8F5E9;color:#1B5E20}
+.b-car{background:#F1F8E9;color:#33691E;font-size:10px}
+.b-air{background:#E3F2FD;color:#1565C0;font-size:10px}
+.g-tl{flex:1;position:relative;height:36px}
+.bar{position:absolute;height:22px;top:50%;transform:translateY(-50%);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;cursor:pointer;overflow:hidden;white-space:nowrap;min-width:4px;z-index:2;transition:opacity .1s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.bar:hover{opacity:.8;z-index:10}
+.bar-full-ar{background:#34A853}
+.bar-full-ao{background:#F6AE2D;color:#333}
+.bar-metro-ok{background:#4285F4}
+.bar-metro-sa{background:#9C27B0}
+.bar-late-pulse{background:#C62828;animation:pulse 2s infinite}
+.bar-done{background:#78909C}
+.bar-gl{background:#E53935;width:10px!important;height:10px!important;border-radius:50%!important;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);transform:translateY(-50%)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.today-line{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,87,34,.7);z-index:5;pointer-events:none}
+.country-sep{padding:6px 20px 6px 32px;background:#eef0f4;border-bottom:2px solid #d8dce5;border-top:1px solid #e5e7eb;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#333;display:flex;align-items:center;gap:8px}
+.country-sep img{width:20px;height:14px;border-radius:2px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,.2);flex-shrink:0}
+.country-sep .csites{font-size:9px;font-weight:500;color:#888;text-transform:none;letter-spacing:0;margin-left:2px}.region-sep{padding:8px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase}.region-north{background:linear-gradient(90deg,#FFF3E0,#FFF8F0);border-color:#E65100;color:#BF360C}.region-south{background:linear-gradient(90deg,#E8F5E9,#F1F8E9);border-color:#1565C0;color:#1B5E20}.region-team{font-size:10px;font-weight:600;letter-spacing:.2px;opacity:.8}
+.gantt-scroll{overflow-y:auto;max-height:calc(100vh - 340px);min-width:1100px}
+/* ===== FILTER ===== */
+.filter-bar{background:#fff;padding:8px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid #e5e7eb}
+.fg{display:flex;align-items:center;gap:5px}
+.fl{font-size:10px;font-weight:700;color:#888;text-transform:uppercase}
+.fb{padding:3px 9px;border:1.5px solid #ddd;border-radius:12px;background:#fff;cursor:pointer;font-size:10px;color:#555;transition:all .12s}
+.fb:hover{border-color:#999}
+.fb.on{background:#1a1a2e;color:#FFE600;border-color:#1a1a2e}
+.fsep{width:1px;height:22px;background:#e5e7eb}
+.fsearch{padding:4px 9px;border:1.5px solid #ddd;border-radius:6px;font-size:11px;width:140px;outline:none}
+.fsearch:focus{border-color:#4285F4}
+/* ===== TOOLTIP ===== */
+.tooltip{position:fixed;background:rgba(26,26,46,.96);color:#fff;padding:10px 14px;border-radius:8px;font-size:11px;pointer-events:none;z-index:9999;max-width:260px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:none}
+.tooltip strong{font-size:12px;display:block;margin-bottom:5px;color:#FFE600}
+.tt-r{display:flex;justify-content:space-between;gap:12px;padding:2px 0}
+.tt-k{color:#aaa}
+.tt-v{font-weight:600}
+/* ===== EXPLORER ===== */
+.explorer-wrap{padding:16px 20px}
+.exp-filters{background:#fff;border-radius:8px;border:1px solid #e5e7eb;padding:14px;margin-bottom:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.exp-group{display:flex;flex-direction:column;gap:6px}
+.exp-group-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
+.exp-cb-label{display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;padding:3px 6px;border-radius:4px;transition:background .1s}
+.exp-cb-label:hover{background:#f4f5f7}
+.exp-cb-label input{width:14px;height:14px;cursor:pointer;accent-color:#4285F4}
+.exp-views{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.exp-view-btn{padding:5px 14px;border-radius:16px;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-size:11px;font-weight:600;color:#666;transition:all .12s}
+.exp-view-btn.on{background:#4285F4;color:#fff;border-color:#4285F4}
+.exp-results{background:#fff;border-radius:8px;border:1px solid #e5e7eb;overflow:hidden}
+.exp-table{width:100%;border-collapse:collapse}
+.exp-table th{text-align:center;padding:8px 10px;background:#f8f9fa;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#666;border-bottom:1px solid #e5e7eb;white-space:nowrap}
+.exp-table td{text-align:center;padding:6px 10px;font-size:12px;border-bottom:1px solid #f4f5f7}
+.exp-table tr:hover td{background:#fafafa}
+.exp-table tr:last-child td{border:none}
+.exp-count{font-size:11px;color:#888;padding:8px 14px;border-top:1px solid #f4f5f7;background:#fafafa}
+/* ===== OVERLAP ===== */
+.ov-wrap{padding:16px 20px}
+.ov-card{background:#fff;border-radius:8px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:12px}
+.ov-hdr{background:#FFF8E1;padding:10px 14px;font-weight:700;font-size:12px;color:#E65100;border-bottom:1px solid #FFE082;display:flex;align-items:center;gap:6px}
+.ov-table{width:100%;border-collapse:collapse}
+.ov-table th{text-align:center;padding:7px 10px;background:#f8f9fa;font-size:10px;font-weight:700;color:#666;border-bottom:1px solid #e5e7eb;white-space:nowrap}
+.ov-table td{text-align:center;padding:6px 10px;font-size:11px;border-bottom:1px solid #f4f5f7}
+.ov-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700}
+/* ===== EXECUTIVE SUMMARY ===== */
+.exec-wrap{padding:16px 20px}
+.exec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:14px}
+.exec-card{background:#fff;border-radius:8px;border:1px solid #e5e7eb;padding:14px}
+.exec-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.exec-chart{width:100%;height:160px;position:relative}
+.bar-chart-h{display:flex;flex-direction:column;gap:6px}
+.bc-row{display:flex;align-items:center;gap:8px}
+.bc-label{width:100px;font-size:11px;color:#555;text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bc-bar-wrap{flex:1;background:#f0f0f0;border-radius:3px;height:18px;overflow:hidden}
+.bc-bar-inner{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-size:9px;font-weight:700;color:#fff;transition:width .3s}
+.bc-val{width:30px;font-size:11px;font-weight:700;color:#333;text-align:right;flex-shrink:0}
+.pie-wrap{display:flex;align-items:center;justify-content:center;gap:20px}
+.pie-legend{display:flex;flex-direction:column;gap:8px}
+.pie-leg-item{display:flex;align-items:center;gap:6px;font-size:11px}
+.pie-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-item{background:#f8f9fa;border-radius:6px;padding:10px;text-align:center}
+.stat-item .sv{font-size:24px;font-weight:800;color:#1a1a2e}
+.stat-item .sl{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-top:2px}
+.timeline-mini{width:100%;overflow:hidden}
+.tm-month{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.tm-label{width:50px;font-size:9px;color:#888;text-align:right;flex-shrink:0}
+.tm-dots{flex:1;display:flex;gap:3px;flex-wrap:wrap}
+.tm-dot{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;cursor:default;transition:transform .1s}
+.tm-dot:hover{transform:scale(1.3);z-index:5}
+/* ===== DATA EDITOR ===== */
+.editor-wrap{padding:16px 20px}
+.editor-toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.ed-btn{padding:5px 14px;border-radius:6px;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-size:11px;font-weight:600;color:#555;transition:all .12s}
+.ed-btn:hover{border-color:#4285F4;color:#4285F4}
+.ed-btn.primary{background:#1a1a2e;color:#FFE600;border-color:#1a1a2e}
+.ed-btn.danger{border-color:#EF4444;color:#EF4444}
+.ed-btn.danger:hover{background:#EF4444;color:#fff}
+.editor-table-wrap{background:#fff;border-radius:8px;border:1px solid #e5e7eb;overflow:auto;max-height:calc(100vh-320px)}
+.editor-table{border-collapse:collapse;width:100%;min-width:900px}
+.editor-table{table-layout:fixed;border-collapse:collapse}
+.editor-table th{position:sticky;top:0;background:#f8f9fa;padding:6px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#666;border-bottom:2px solid #e5e7eb;white-space:nowrap;z-index:5;text-align:center;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box}
+.editor-table td{padding:3px 4px;border-bottom:1px solid #f0f0f0;font-size:11px;white-space:nowrap;text-align:center;overflow:hidden;box-sizing:border-box;vertical-align:middle}
+.editor-table input,.editor-table select{width:100%;box-sizing:border-box;border:1px solid #e0e0e0;border-radius:4px;padding:2px 4px;font-size:11px;background:#fff;font-family:inherit;text-align:center}
+.editor-table input[type=date]{text-align:center}
+.editor-table input:focus,.editor-table select:focus{outline:2px solid #4285F4;border-color:transparent}
+.editor-table input[type=text]{text-align:inherit}
+.ed-region-row{height:26px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;border:none}
+.ed-region-row td{padding:0 12px;line-height:26px;border-bottom:1px solid #e5e7eb!important}
+.ed-region-north td{background:linear-gradient(90deg,#FFF3E0 0%,#fff8f0 30%,#fff 100%);color:#BF360C;border-left:3px solid #E65100!important}
+.ed-region-south td{background:linear-gradient(90deg,#E8F5E9 0%,#f1f8e9 30%,#fff 100%);color:#1B5E20;border-left:3px solid #1565C0!important}
+.ed-row-north td:first-child{border-left:3px solid #E65100}
+.ed-row-south td:first-child{border-left:3px solid #1565C0}
+.editor-table tr:hover td{background:#fafbff}
+.ed-row-north:hover td{background:#FFF8F0!important}
+.ed-row-south:hover td{background:#F1F8E9!important}
+.ed-fchip{padding:3px 10px;border-radius:12px;border:1px solid #ccc;background:#fff;font-size:10px;font-weight:600;cursor:pointer;color:#555;transition:all .15s;white-space:nowrap}
+.ms-dd label input[type=checkbox]{accent-color:#4285F4;width:13px;height:13px;cursor:pointer;flex-shrink:0}
+.ed-fchip:hover{border-color:#4285F4;color:#4285F4;background:#EAF2FF}
+.ed-fchip.ed-fchip-on{background:#4285F4;color:#fff;border-color:#4285F4}
+.bc-row:hover{background:#f0f4ff!important;border-radius:6px;}
+.editor-table tr:hover td{background:#fafafa}
+.editor-table td input,.editor-table td select{width:100%;border:none;background:transparent;font-size:11px;font-family:inherit;padding:2px 4px;border-radius:3px;outline:none}
+.editor-table td input:focus,.editor-table td select:focus{background:#EEF2FF;border-bottom:1px solid #4285F4}
+.ed-row-new{background:#F0FDF4!important}
+.ed-del-btn{background:none;border:none;cursor:pointer;color:#EF4444;font-size:14px;padding:0 4px}
+.ed-add-row{text-align:center;padding:8px;color:#4285F4;cursor:pointer;font-size:11px;font-weight:600;border-top:1px dashed #e5e7eb;background:#fafafa}
+.ed-add-row:hover{background:#EEF2FF}
+.ed-notice{padding:8px 14px;background:#EEF2FF;border-radius:6px;font-size:11px;color:#1565C0;display:flex;align-items:center;gap:6px;margin-bottom:10px}
+/* ===== LEGEND ===== */
+.legend{background:#fff;padding:8px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid #e5e7eb;font-size:10px}
+.leg-item{display:flex;align-items:center;gap:4px}
+.leg-color{width:12px;height:8px;border-radius:2px}
+/* ===== UTILS ===== */
+.no-data{padding:40px;text-align:center;color:#aaa;font-size:14px;display:none}
+.no-data.show{display:block}
+/* ===== KPI DETAIL PANEL ===== */
+.kpi-bar{flex-direction:column!important;gap:6px!important;align-items:flex-start!important}
+.kpi-row-top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;width:100%}
+.kpi-clickable{cursor:pointer}
+.kpi-clickable:hover .kpi-v{opacity:.75}
+.kpi-detail-toggle{font-size:11px;color:#4285F4;cursor:pointer;text-decoration:underline;white-space:nowrap;margin-left:auto}
+.kpi-detail-panel{width:100%;display:grid!important;grid-template-columns:repeat(4,1fr);gap:12px;padding:10px 0;border-top:1px solid #e5e7eb}
+.kpi-detail-col{display:flex;flex-direction:column;gap:3px}
+.kd-title{font-size:11px;font-weight:800;margin-bottom:4px}
+.kd-sites{display:flex;flex-wrap:wrap;gap:3px;align-items:flex-start}
+.kd-chip{display:inline-block;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;white-space:nowrap;cursor:default}
+.kd-chip-late{background:#FDECEA;color:#B71C1C}
+.kd-chip-urg{background:#FFF3E0;color:#E65100}
+.kd-chip-ok{background:#E3F2FD;color:#1565C0;font-weight:700}
+.kd-chip-done{background:#E8F5E9;color:#2E7D32;font-weight:700}
+.desl-row:hover{background:#f8f9fa}
+.desl-section{padding:0}
+.desl-summary{display:flex;gap:12px;padding:10px 16px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;flex-wrap:wrap;align-items:center}
+.desl-kpi{display:flex;flex-direction:column;align-items:center;min-width:80px}
+.desl-kpi-v{font-size:22px;font-weight:900;line-height:1.1}
+.desl-kpi-l{font-size:9px;color:#888;font-weight:600;text-transform:uppercase;margin-top:2px}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-logo">ML</div>
+    <div class="hdr-title">
+      <h1>STD Assurance — Audit Roadmap 2026/2027</h1>
+      <p>Gestão Visual · Full & Metro · 5 países · Interativo</p>
+    </div>
+  </div>
+  <div class="hdr-meta">
+    <div class="lang-toggle">
+      <button class="lang-btn lang-btn-on" data-lang="pt" onclick="setLang('pt',this)"><img src="https://flagcdn.com/16x12/br.png" alt="BR" style="vertical-align:middle;margin-right:3px"> PT</button>
+      <button class="lang-btn" data-lang="es" onclick="setLang('es',this)"><img src="https://flagcdn.com/16x12/es.png" alt="ES" style="vertical-align:middle;margin-right:3px"> ES</button>
+    </div>
+    <span>|</span>
+    <span id="today-lbl"></span>
+    <span>|</span>
+    <span id="vis-count">—</span>
+  </div>
+</div>
+<!-- KPI BAR -->
+<div class="kpi-bar">
+  <div class="kpi-row-top">
+    <div class="kpi"><span class="kpi-v" id="k-total">—</span><span class="kpi-l">Total Sites</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi"><span class="kpi-v" style="color:#34A853" id="k-full">—</span><span class="kpi-l">Full</span></div>
+    <div class="kpi"><span class="kpi-v" style="color:#4285F4" id="k-metro">—</span><span class="kpi-l">Metro+DS</span></div>
+    <div class="kpi-sep"></div>
+    
+    <div class="kpi-sep"></div><div class="kpi"><span class="kpi-v" style="color:#BF360C;font-size:14px">🌎</span><span class="kpi-l" style="color:#BF360C">North</span></div><div class="kpi"><span class="kpi-v" id="k-mx">—</span><span class="kpi-l">MX</span></div><div class="kpi"><span class="kpi-v" id="k-co">—</span><span class="kpi-l">CO</span></div><div class="kpi-sep"></div><div class="kpi"><span class="kpi-v" style="color:#1B5E20;font-size:14px">🌎</span><span class="kpi-l" style="color:#1B5E20">South</span></div><div class="kpi"><span class="kpi-v" id="k-br">—</span><span class="kpi-l">BR</span></div><div class="kpi"><span class="kpi-v" id="k-ar">—</span><span class="kpi-l">AR</span></div><div class="kpi"><span class="kpi-v" id="k-cl">—</span><span class="kpi-l">CL</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi kpi-clickable" onclick="toggleKpiDetail()">
+      <span class="kpi-v" style="color:#C62828" id="k-late">—</span><span class="kpi-l" data-i18n="kpi_late">⚠ Atrasados</span><span class="kpi-sub" id="k-late-sub">—</span>
+    </div>
+    <div class="kpi kpi-clickable" onclick="toggleKpiDetail()">
+      <span class="kpi-v" style="color:#E65100" id="k-urg">—</span><span class="kpi-l" data-i18n="kpi_urg">🔔 Urgentes</span><span class="kpi-sub" id="k-urg-sub">—</span>
+    </div>
+    <div class="kpi kpi-clickable" onclick="toggleKpiDetail()">
+      <span class="kpi-v" style="color:#1B5E20" id="k-ok">—</span><span class="kpi-l" data-i18n="kpi_ok">⏱ Previstos</span><span class="kpi-sub" id="k-ok-sub">—</span>
+    </div>
+    <div class="kpi kpi-clickable" onclick="toggleKpiDetail()">
+      <span class="kpi-v" style="color:#78909C" id="k-done">—</span><span class="kpi-l" data-i18n="kpi_done">✅ Concluídos</span><span class="kpi-sub" id="k-done-sub">—</span>
+    </div>
+    <span class="kpi-detail-toggle" data-i18n="kpi_details" onclick="toggleKpiDetail()" id="kpi-toggle-btn" title="Ver detalhes">▼ detalhes</span>
+  </div>
+  <div class="kpi-detail-panel" id="kpi-detail-panel" style="display:none">
+    <div class="kpi-detail-col" id="kd-late">
+      <div class="kd-title" data-i18n="kd_late" style="color:#C62828">⚠ Atrasados</div>
+      <div style="font-size:9px;font-weight:700;color:#34A853;margin:4px 0 2px">FULL</div>
+      <div class="kd-sites" id="kd-late-full"></div>
+      <div style="font-size:9px;font-weight:700;color:#4285F4;margin:6px 0 2px">METRO</div>
+      <div class="kd-sites" id="kd-late-metro"></div>
+    </div>
+    <div class="kpi-detail-col" id="kd-urg">
+      <div class="kd-title" data-i18n="kd_urg" style="color:#E65100">🔔 Urgentes ≤45 dias</div>
+      <div style="font-size:9px;font-weight:700;color:#34A853;margin:4px 0 2px">FULL</div>
+      <div class="kd-sites" id="kd-urg-full"></div>
+      <div style="font-size:9px;font-weight:700;color:#4285F4;margin:6px 0 2px">METRO</div>
+      <div class="kd-sites" id="kd-urg-metro"></div>
+    </div>
+    <div class="kpi-detail-col" id="kd-ok">
+      <div class="kd-title" data-i18n="kd_ok" style="color:#1B5E20">⏱ Previstos</div>
+      <div style="font-size:9px;font-weight:700;color:#34A853;margin:4px 0 2px">FULL</div>
+      <div class="kd-sites" id="kd-ok-full"></div>
+      <div style="font-size:9px;font-weight:700;color:#4285F4;margin:6px 0 2px">METRO</div>
+      <div class="kd-sites" id="kd-ok-metro"></div>
+    </div>
+    <div class="kpi-detail-col" id="kd-done">
+      <div class="kd-title" data-i18n="kd_done" style="color:#2E7D32">✅ Concluídos</div>
+      <div style="font-size:9px;font-weight:700;color:#34A853;margin:4px 0 2px">FULL</div>
+      <div class="kd-sites" id="kd-done-full"></div>
+      <div style="font-size:9px;font-weight:700;color:#4285F4;margin:6px 0 2px">METRO</div>
+      <div class="kd-sites" id="kd-done-metro"></div>
+    </div>
+  </div>
+</div>
+<!-- TABS -->
+<div class="tab-bar">
+  <button class="tab active" data-tab-id="gantt" onclick="switchTab('gantt',this)">📊 Gantt</button>
+  <button class="tab" data-tab-id="explorer" onclick="switchTab('explorer',this)">🔍 Explorer</button>
+  <button class="tab" data-tab-id="overlap" onclick="switchTab('overlap',this)">⚡ Sobreposições</button>
+  <button class="tab" data-tab-id="exec" onclick="switchTab('exec',this)">📈 Resumo Executivo</button>
+  <button class="tab" data-tab-id="editor" onclick="switchTab('editor',this)">🗄️ Base de Dados</button>
+  <button class="tab" data-tab-id="desl" onclick="switchTab('desl',this)">✈ Deslocamento</button>
+</div>
+<!-- TOOLTIP -->
+<div class="tooltip" id="tip"></div>
+
+<!-- ============ TAB GANTT ============ -->
+<div id="tab-gantt" class="section active">
+  <div class="filter-bar">
+    <div class="fg"><span class="fl" style="color:#BF360C">🌎 North</span>
+      <label class="fcb checked"><input type="checkbox" data-gk="country" data-gv="MX" checked onchange="toggleGF('country','MX',this.checked)">MX</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="country" data-gv="CO" checked onchange="toggleGF('country','CO',this.checked)">CO</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="country" data-gv="PE" checked onchange="toggleGF('country','PE',this.checked)">PE</label>
+    </div>
+    <div class="fsep"></div>
+    <div class="fg"><span class="fl" style="color:#1B5E20">🌎 South</span>
+      <label class="fcb checked"><input type="checkbox" data-gk="country" data-gv="BR" checked onchange="toggleGF('country','BR',this.checked)">BR</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="country" data-gv="AR" checked onchange="toggleGF('country','AR',this.checked)">AR</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="country" data-gv="CL" checked onchange="toggleGF('country','CL',this.checked)">CL</label>
+    </div>
+    <div class="fsep"></div>
+    <div class="fg"><span class="fl">Tipo</span>
+      <label class="fcb checked"><input type="checkbox" data-gk="type" data-gv="Full" checked onchange="toggleGF('type','Full',this.checked)">Full</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="type" data-gv="Metro Std" checked onchange="toggleGF('type','Metro Std',this.checked)">Std</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="type" data-gv="Metro Intra" checked onchange="toggleGF('type','Metro Intra',this.checked)">Intra</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="type" data-gv="Darkstore" checked onchange="toggleGF('type','Darkstore',this.checked)">Dark</label>
+    </div>
+    <div class="fsep"></div>
+    <div class="fg"><span class="fl">Deslocamento</span>
+      <label class="fcb checked"><input type="checkbox" data-gk="transport" data-gv="car" checked onchange="toggleGF('transport','car',this.checked)">🚗 Terrestre</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="transport" data-gv="air" checked onchange="toggleGF('transport','air',this.checked)">✈ Aéreo</label>
+    </div>
+    <div class="fsep"></div>
+    <div class="fg"><span class="fl">Status</span>
+      <label class="fcb checked"><input type="checkbox" data-gk="status" data-gv="late" checked onchange="toggleGF('status','late',this.checked)">⚠ Atrasado</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="status" data-gv="urgent" checked onchange="toggleGF('status','urgent',this.checked)">🔔 Urgente</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="status" data-gv="ok" checked onchange="toggleGF('status','ok',this.checked)">✓ Previsto</label>
+      <label class="fcb checked"><input type="checkbox" data-gk="status" data-gv="done" checked onchange="toggleGF('status','done',this.checked)">✅ Concluído</label>
+    </div>
+    <div class="fsep"></div>
+    <input class="fsearch" id="gsearch" placeholder="🔍 site, cidade..." oninput="applyGanttFilters()">
+  </div>
+  <div class="gantt-wrap">
+    <div class="gantt-sticky">
+      <div class="gantt-hdr-wrap">
+        <div class="gantt-hdr-row">
+          <div class="g-left-hdr">FC / Site</div>
+          <div class="g-months-tl" id="month-hdr" style="position:relative"></div>
+        </div>
+      </div>
+    </div>
+    <div class="gantt-scroll" id="gantt-body"></div>
+    <div class="no-data" id="gantt-nores">Nenhum site encontrado.</div>
+  </div>
+</div>
+
+<!-- ============ TAB EXPLORER ============ -->
+<div id="tab-explorer" class="section">
+  <div class="explorer-wrap">
+    <div class="exp-filters" id="exp-filters"><!-- built by JS --></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div class="exp-views">
+        <button class="exp-view-btn on" onclick="setExpView('table',this)">📋 Tabela</button>
+        <button class="exp-view-btn" onclick="setExpView('gantt',this)">📊 Mini-Gantt</button>
+        <button class="exp-view-btn" onclick="setExpView('cards',this)">🃏 Cards</button>
+      </div>
+      <span class="exp-count" id="exp-count">0 sites</span>
+    </div>
+    <div class="exp-results" id="exp-results"><!-- built by JS --></div>
+  </div>
+</div>
+
+<!-- ============ TAB OVERLAP ============ -->
+<div id="tab-overlap" class="section">
+  <div class="ov-wrap">
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 4px 6px;flex-wrap:wrap">
+      <span style="font-size:11px;font-weight:700;color:#666">EQUIPE:</span>
+      <button class="ed-fchip ed-fchip-on" id="ov-btn-all" onclick="ovSetRegion('all',this)">Todas</button>
+      <button class="ed-fchip" id="ov-btn-south" style="color:#1B5E20;border-color:#1565C0" onclick="ovSetRegion('south',this)">🌎 South America (BR/AR/CL)</button>
+      <button class="ed-fchip" id="ov-btn-north" style="color:#BF360C;border-color:#E65100" onclick="ovSetRegion('north',this)">🌎 North America (MX/CO/PE)</button>
+    </div>
+    <div class="ov-card">
+      <div class="ov-hdr" id="ov-hdr-text">⚡ Semanas com Sobreposição Full + Metro — Equipe SA Brasil</div>
+      <table class="ov-table"><thead><tr>
+        <th>Semana</th><th>Período</th><th>Site Full</th><th>Site Metro</th>
+        <th>Auditores Full</th><th>Auditor Metro</th><th>Avaliação</th>
+      </tr></thead><tbody id="ov-body"></tbody></table>
+    </div>
+    <div style="padding:10px 14px;background:#E8F5E9;border-radius:8px;font-size:11px;border:1px solid #C8E6C9;margin-top:8px">
+      <strong style="color:#1B5E20">✓ Estratégia aprovada:</strong> Full audits com <strong>máximo 3 auditores</strong> (Felipe, Gisele, Rita).
+      Humberto fica disponível durante semanas de Full para executar Metro. Sobreposição é <em>gerenciável</em>.
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB EXECUTIVE ============ -->
+<div id="tab-exec" class="section">
+  <div id="exec-filter-bar" style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;flex-wrap:wrap"></div>
+  <div class="exec-wrap">
+    <div class="exec-grid" id="exec-grid"><!-- built by JS --></div>
+  </div>
+</div>
+
+<!-- ============ TAB EDITOR ============ -->
+<div id="tab-desl" class="section">
+  <div id="desl-filter-bar" style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;flex-wrap:wrap"></div>
+  <div id="desl-content"></div>
+</div>
+<div id="tab-editor" class="section">
+  <div class="editor-wrap">
+    <div class="ed-notice">💡 Edite diretamente nas células. As alterações refletem em todos os dashboards instantaneamente. Use os botões para adicionar, exportar ou resetar os dados.</div>
+    <div id="ed-filter-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:8px 16px;background:#f8f9fa;border-bottom:1px solid #e5e7eb"></div>
+    <div class="editor-toolbar">
+      <span id="ed-count" style="font-size:11px;color:#888;margin-right:auto"></span>
+      <button class="ed-btn primary" onclick="edAddRow()">+ Novo Site</button>
+      <button class="ed-btn" onclick="edExportCSV()">⬇ Exportar CSV</button>
+      <button class="ed-btn" style="background:#1565C0;color:#fff;border-color:#1565C0" onclick="edBackupJSON()">💾 Backup JSON</button>
+      <label class="ed-btn" style="background:#2E7D32;color:#fff;border-color:#2E7D32;cursor:pointer" title="Importar backup JSON">📂 Restaurar JSON<input type="file" accept=".json" style="display:none" onchange="edRestoreJSON(this)"></label>
+      <button class="ed-btn" onclick="edReset()">↺ Restaurar Padrão</button>
+      <span style="font-size:11px;color:#888;margin-left:auto" id="ed-status">✓ Dados sincronizados</span>
+    </div>
+    <div class="editor-table-wrap">
+      <table class="editor-table"><thead>
+        <tr id="ed-thead"></tr>
+      </thead><tbody id="ed-tbody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <strong style="color:#666">LEGENDA:</strong>
+  <div class="leg-item"><div class="leg-color" style="background:#34A853"></div> Full – Auditoria Regional</div>
+  <div class="leg-item"><div class="leg-color" style="background:#4285F4"></div> Metro – Assessment Operativo</div>
+  <div class="leg-item"><div class="leg-color" style="background:#9C27B0"></div> Metro – Self Assessment</div>
+  <div class="leg-item"><div class="leg-color" style="background:#C62828"></div> ⚠ Atrasado</div>
+  <div class="leg-item"><div class="leg-color" style="background:#2E7D32"></div> ✅ Concluído</div>
+  <div class="leg-item"><div class="leg-color" style="background:#1565C0"></div> ⏱ Previsto</div>
+  <div class="leg-item"><div class="leg-color" style="background:#E53935;border-radius:50%;width:10px;height:10px"></div> Go-Live</div>
+  <div class="leg-item">🚗 Terrestre ≤3h &nbsp; ✈ Aéreo >3h</div>
+</div>
+<script>
+// ================================================================
+// DATA — all sites with confirmed Drive data
+// ================================================================
+const TIMELINE_S = new Date('2026-06-01'); // Display starts Jun/26
+const TIMELINE_E = new Date('2027-12-31');
+const TOTAL_DAYS = Math.round((TIMELINE_E - TIMELINE_S)/86400000)+1; // 579
+
+function doff(ds){
+  const d=new Date(ds);
+  return Math.round((d-TIMELINE_S)/86400000);
+}
+function pct(d,dur){
+  const left=(doff(d)/TOTAL_DAYS*100).toFixed(3)+'%';
+  const w=Math.max(dur/TOTAL_DAYS*100,.15).toFixed(3)+'%';
+  return{left,w};
+}
+
+const TODAY=new Date();
+function calcStatus(ds,isDone,isLate){
+  if(isDone) return 'done';
+  if(isLate||!ds) return ds?'late':'tbd';
+  const d=new Date(ds);
+  const diff=(d-TODAY)/86400000;
+  if(diff<0) return 'late';
+  if(diff<=45) return 'urgent';
+  return 'ok';
+}
+
+// ---- SITE DEFINITIONS ----
+// fields: id,code,region,country,flag,state,city,classification,transport,transportNote,
+//         auditors,auditorCount,
+//         events:[{type,start,end,label,scope}]
+// types: full-ar, full-ao, metro-ass, metro-ass-late, metro-sa, metro-sa-late, golive, done
+
+let SITES_DEFAULT = [
+// ========== FULL SA TEAM (Felipe+Gisele+Rita, max 3) ==========
+{id:1,code:'BRSP02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Cajamar',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h30',
+ auditors:'Gisele | Felipe | Rita',auditorCount:3,
+ events:[{type:'done',start:'2026-03-23',end:'2026-03-27',label:'✅',scope:'Auditoria Regional – Concluída W13/Mar'}]},
+
+{id:2,code:'BRSP04',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Cajamar',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h30',
+ auditors:'Felipe | Rita | Gisele',auditorCount:3,
+ events:[{type:'done',start:'2026-04-13',end:'2026-04-17',label:'✅',scope:'Auditoria Regional – Concluída W16/Abr'}]},
+
+{id:3,code:'BRSP06',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Araçariguama',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h',
+ auditors:'Rita | Gisele | Felipe',auditorCount:3,
+ events:[{type:'done',start:'2026-05-11',end:'2026-05-15',label:'✅',scope:'Auditoria Regional – Concluída W20/Mai'}]},
+
+{id:4,code:'BRRC02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Sumaré',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h30',
+ auditors:'Gisele | Felipe | Rita',auditorCount:3,
+ events:[{type:'done',start:'2026-05-25',end:'2026-05-29',label:'✅',scope:'Auditoria Regional – Concluída W22/Mai'}]},
+
+{id:5,code:'BRSP15',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Cajamar',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h30',
+ auditors:'Felipe | Gisele | Rita',auditorCount:3,
+ events:[{type:'full-ar',start:'2026-06-15',end:'2026-06-19',label:'Aud.',scope:'Auditoria Regional – 5 dias (W25/Jun)'}]},
+
+{id:6,code:'BRRJ02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'RJ',city:'São João Meriti',
+ classification:'Full',transport:'air',transportNote:'RJ → voo ~1h',
+ auditors:'Gisele | Rita | Felipe',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[{type:'full-ar',start:'2026-07-06',end:'2026-07-10',label:'Aud.',scope:'Auditoria Regional – 5 dias'}]},
+
+{id:7,code:'BRSP18',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h',
+ auditors:'Felipe | Rita | Gisele',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'done',start:'2026-01-07',end:'2026-01-08',label:'✅',scope:'Assessment Operativo – Concluído Jan/26'},
+   {type:'full-ar',start:'2026-07-20',end:'2026-07-24',label:'Aud.',scope:'Auditoria Regional – 5 dias'}]},
+
+{id:8,code:'BRSP19',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h',
+ auditors:'Rita | Gisele | Felipe',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'done',start:'2026-01-05',end:'2026-01-06',label:'✅',scope:'Assessment Operativo – Concluído Jan/26'},
+   {type:'full-ar',start:'2026-08-10',end:'2026-08-14',label:'Aud.',scope:'Auditoria Regional – 5 dias'}]},
+
+{id:9,code:'BRMG03',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'MG',city:'Extrema',
+ classification:'Full',transport:'car',transportNote:'Todos ≤2h',
+ auditors:'Rita | Gisele | Felipe',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'done',start:'2026-01-19',end:'2026-01-21',label:'✅',scope:'Assessment Operativo – Concluído Jan/26'},
+   {type:'full-ar',start:'2026-08-24',end:'2026-08-28',label:'Aud.',scope:'Auditoria Regional – 5 dias'}]},
+
+{id:10,code:'BRRC03',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Embu das Artes',
+ classification:'Full',transport:'car',transportNote:'Todos ≤1h',
+ auditors:'Gisele | Felipe | Rita',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[{type:'full-ar',start:'2026-09-14',end:'2026-09-18',label:'Aud.',scope:'Auditoria Regional – 4 dias'}]},
+
+{id:11,code:'BRMG04',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'MG',city:'Extrema',
+ classification:'Full',transport:'car',transportNote:'Todos ≤2h',
+ auditors:'Rita | Gisele | Felipe',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'done',start:'2026-01-19',end:'2026-01-21',label:'✅',scope:'Assessment Operativo – Concluído Jan/26'},
+   {type:'full-ar',start:'2026-09-28',end:'2026-10-03',label:'Aud.',scope:'Auditoria Regional – 6 dias'}]},
+
+{id:12,code:'BRBA02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'BA',city:'Simões Filho',
+ classification:'Full',transport:'air',transportNote:'BA → voo ~2h30',
+ auditors:'Gisele | Rita | Felipe',auditorCount:3,
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'done',start:'2026-03-02',end:'2026-03-03',label:'✅',scope:'Assessment Operativo – Concluído Mar/26'},
+   {type:'full-ar',start:'2026-10-19',end:'2026-10-23',label:'Aud.',scope:'Auditoria Regional – 5 dias'}]},
+
+{id:13,code:'ARBA01',region:'SA-MLA',country:'AR',flag:'🇦🇷',state:'BA',city:'Buenos Aires',
+ classification:'Full',transport:'air',transportNote:'Buenos Aires → voo ~3h',
+ auditors:'Felipe | Gisele | Rita',auditorCount:3,
+ events:[{type:'full-ar',start:'2026-12-07',end:'2026-12-11',label:'Aud.',scope:'Auditoria Regional – 4 dias'}]},
+
+// ========== FULL NA-MLM (MEXICO) — ordem cronológica ==========
+{id:80,code:'MXCD11',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'done',start:'2026-01-26',end:'2026-01-31',label:'✅',scope:'Auditoria Completa 100% – Concluída W5/Jan'}]},
+
+{id:84,code:'MXCD09',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'done',start:'2026-02-16',end:'2026-02-21',label:'✅',scope:'Auditoria Completa 100% – Concluída W8/Fev'}]},
+
+{id:85,code:'MXCD06',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'done',start:'2026-03-23',end:'2026-03-28',label:'✅',scope:'Auditoria Parcial/Sistêmica – Concluída W13/Mar'}]},
+
+{id:86,code:'MXCD14',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[
+   {type:'done',start:'2026-03-30',end:'2026-04-01',label:'✅',scope:'Assessment Operativo – Concluído W14/Mar'},
+   {type:'full-ao',start:'2026-11-02',end:'2026-11-07',label:'Ass.Op.',scope:'Assessment Operativo – W45 (02-07/Nov)'}]},
+
+{id:87,code:'MXCD02',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'done',start:'2026-04-27',end:'2026-05-02',label:'✅',scope:'Auditoria Parcial/Sistêmica – Concluída W18/Abr'}]},
+
+{id:88,code:'MXTC09',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'done',start:'2026-05-25',end:'2026-05-30',label:'✅',scope:'Auditoria Completa 100% – Concluída W22/Mai'}]},
+
+{id:89,code:'MXJL02',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'JL',city:'Guadalajara',
+ classification:'Full',transport:'air',transportNote:'Guadalajara → voo',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ao',start:'2026-06-01',end:'2026-06-03',label:'Ass.Op.',scope:'Assessment Operativo – W23 (01-03/Jun)'}]},
+
+{id:90,code:'MXCD08',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ar',start:'2026-06-08',end:'2026-06-13',label:'Aud.',scope:'Auditoria Completa 100% – W24 (08-13/Jun)'}]},
+
+{id:91,code:'MXCD05',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ar',start:'2026-06-15',end:'2026-06-20',label:'Aud.',scope:'Auditoria Completa 100% – W25 (15-20/Jun)'}]},
+
+{id:81,code:'MXNL02',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'NL',city:'Monterrey',
+ classification:'Full',transport:'air',transportNote:'Monterrey → voo',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ao',start:'2026-06-22',end:'2026-06-24',label:'Ass.Op.',scope:'Assessment Operativo – W26 (22-24/Jun)'}]},
+
+{id:92,code:'MXCD12',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ao',start:'2026-07-13',end:'2026-07-18',label:'Ass.Op.',scope:'Assessment Operativo – W29 (13-18/Jul)'}]},
+
+{id:82,code:'MXCD07',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ar',start:'2026-08-03',end:'2026-08-08',label:'Aud.',scope:'Auditoria Completa 100% – W32 (03-08/Ago)'}]},
+
+{id:93,code:'MXCD13',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ao',start:'2027-01-18',end:'2027-01-20',label:'Ass.Op.',scope:'Assessment Operativo – W04 (18-20/Jan/27)'}]},
+
+{id:94,code:'MXRC03',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local – Denise/Alejandro',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ar',start:'2027-01-25',end:'2027-01-30',label:'Aud.',scope:'Auditoria Sistêmica – W05 (25-30/Jan/27)'}]},
+
+{id:95,code:'MXNL01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'NL',city:'Monterrey',
+ classification:'Full',transport:'air',transportNote:'Monterrey → voo',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ar',start:'2027-02-22',end:'2027-02-27',label:'Aud.',scope:'Auditoria Sistêmica – W09 (22-27/Fev/27)'}]},
+
+{id:96,code:'MXJL01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'JL',city:'Guadalajara',
+ classification:'Full',transport:'air',transportNote:'Guadalajara → voo',
+ auditors:'Auditor MX',auditorCount:2,
+ events:[{type:'full-ar',start:'2027-03-22',end:'2027-03-27',label:'Aud.',scope:'Auditoria Sistêmica – W13 (22-27/Mar/27)'}]},
+
+// ========== FULL NA-MLP (PERU) ==========
+{id:83,code:'PELI01',region:'NA-MLP',country:'PE',flag:'🇵🇪',state:'LI',city:'Lima',
+ classification:'Full',transport:'air',transportNote:'Lima → voo',
+ auditors:'Auditor PE',auditorCount:2,
+ events:[
+   {type:'done',start:'2026-01-19',end:'2026-01-21',label:'✅',scope:'Assessment – Concluído W4/Jan'},
+   {type:'full-ar',start:'2026-09-07',end:'2026-09-12',label:'Aud.',scope:'Auditoria Parcial/Sistêmica – W37 (07-12/Set)'}]},
+
+// ========== METRO BRASIL ==========
+{id:20,code:'BRSP30',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Metro Intra',transport:'car',transportNote:'Humberto ≤1h20',
+ auditors:'Humberto',auditorCount:1,golive:'2026-02-27',
+ processing:'3P MWH',siteLeader:'',events:[
+   {type:'golive',start:'2026-07-06',end:'2026-07-06',label:'GL',scope:'Go-Live: 27/Fev/2026 (visibilidade Jul+)'},
+   {type:'metro-ass-late',start:'2026-06-22',end:'2026-06-22',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 22/Jun/26 ⚠'},
+   {type:'metro-sa',start:'2026-08-27',end:'2026-08-27',label:'SA',scope:'Self Assessment +6m (Ago/26)'}]},
+
+{id:21,code:'BRES01',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'ES',city:'Vitória',
+ classification:'Metro Intra',transport:'air',transportNote:'SP–VIX voo ~1h',
+ auditors:'Humberto',auditorCount:1,golive:'2026-04-30',
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'golive',start:'2026-07-06',end:'2026-07-06',label:'GL',scope:'Go-Live: 30/Abr/2026 (visibilidade Jul+)'},
+   {type:'metro-ass-late',start:'2026-06-29',end:'2026-06-29',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 29/Jun/26 ⚠'},
+   {type:'metro-sa',start:'2026-10-30',end:'2026-10-30',label:'SA',scope:'Self Assessment +6m (Out/26)'}]},
+
+{id:22,code:'BRSP28',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Marilia',
+ classification:'Metro Std',transport:'air',transportNote:'Todos >5h → Aéreo',
+ auditors:'Humberto',auditorCount:1,golive:'2026-06-11',
+ processing:'3PL T+NT',siteLeader:'TBD',events:[
+   {type:'golive',start:'2026-06-11',end:'2026-06-11',label:'GL',scope:'Go-Live: 11/Jun/2026'},
+   {type:'metro-ass',start:'2026-07-11',end:'2026-07-11',label:'Ass.Op.',scope:'Assessment Operativo +1m (W29 Jul/26)'},
+   {type:'metro-sa',start:'2026-12-11',end:'2026-12-11',label:'SA',scope:'Self Assessment +6m (Dez/26)'}]},
+
+{id:23,code:'BRRS01',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'RS',city:'Porto Alegre',
+ classification:'Metro Std',transport:'air',transportNote:'RS → voo ~2h',
+ auditors:'Humberto',auditorCount:1,golive:'2024-09-01',
+ processing:'Meli T+NT',siteLeader:'Ricardo Santos De Souza',events:[
+   {type:'metro-ass-late',start:'2026-07-13',end:'2026-07-13',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 13/Jul/26 ⚠'},
+   {type:'metro-sa-late',start:'2026-08-10',end:'2026-08-10',label:'⚠',scope:'Self Assessment ATRASADO – Proposta: 10/Ago/26 ⚠'}]},
+
+{id:24,code:'BRSP24',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Ribeirão Preto',
+ classification:'Metro Std',transport:'car',transportNote:'Humberto ≤2h / Rita ≤2h30',
+ auditors:'Humberto',auditorCount:1,golive:'2025-08-01',
+ processing:'3PL T+NT',siteLeader:'Fernando Bernardelli',events:[
+   {type:'metro-ass-late',start:'2026-06-15',end:'2026-06-15',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 15/Jun/26 ⚠'},
+   {type:'metro-sa-late',start:'2026-07-06',end:'2026-07-06',label:'⚠',scope:'Self Assessment ATRASADO – Proposta: 06/Jul/26 ⚠'}]},
+
+{id:25,code:'BRDF01',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'DF',city:'Brasília',
+ classification:'Metro Std',transport:'air',transportNote:'BSB → voo ~2h',
+ auditors:'Humberto',auditorCount:1,golive:'2024-09-01',
+ processing:'3PL T+NT',siteLeader:'Fernando Bernardelli',events:[
+   {type:'metro-ass-late',start:'2026-07-06',end:'2026-07-06',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 06/Jul/26 ⚠'},
+   {type:'metro-sa-late',start:'2026-07-27',end:'2026-07-27',label:'⚠',scope:'Self Assessment ATRASADO – Proposta: 27/Jul/26 ⚠'}]},
+
+{id:26,code:'BRSP34',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Metro Intra',transport:'car',transportNote:'Humberto ≤1h20',
+ auditors:'Humberto',auditorCount:1,golive:'2026-08-19',
+ processing:'TBD MWH',siteLeader:'',events:[
+   {type:'golive',start:'2026-08-19',end:'2026-08-19',label:'GL',scope:'Go-Live: 19/Ago/2026'},
+   {type:'metro-ass',start:'2026-09-19',end:'2026-09-19',label:'Ass.Op.',scope:'Assessment Operativo +1m (Set/26)'},
+   {type:'metro-sa',start:'2027-02-19',end:'2027-02-19',label:'SA',scope:'Self Assessment +6m (Fev/27)'}]},
+
+{id:27,code:'BRPE02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'PE',city:'Recife',
+ classification:'Metro Intra',transport:'air',transportNote:'SP–REC voo ~2h30',
+ auditors:'Humberto',auditorCount:1,golive:'2026-08-20',
+ events:[
+   {type:'golive',start:'2026-08-20',end:'2026-08-20',label:'GL',scope:'Go-Live: 20/Ago/2026'},
+   {type:'metro-ass',start:'2026-09-20',end:'2026-09-20',label:'Ass.Op.',scope:'Assessment Operativo +1m (Set/26)'},
+   {type:'metro-sa',start:'2027-02-20',end:'2027-02-20',label:'SA',scope:'Self Assessment +6m (Fev/27)'}]},
+
+{id:28,code:'BRSP35',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'SP metro (TBC)',
+ classification:'Metro Intra',transport:'car',transportNote:'SP Metro ≤1h',
+ auditors:'Humberto',auditorCount:1,golive:'2026-10-08',
+ processing:'TBD MWH',siteLeader:'',events:[
+   {type:'golive',start:'2026-10-08',end:'2026-10-08',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-08',end:'2026-11-08',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-08',end:'2027-04-08',label:'SA',scope:'Self Assessment +6m (Abr/27)'}]},
+
+{id:29,code:'BRSP36',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'SP metro (TBC)',
+ classification:'Metro Intra',transport:'car',transportNote:'SP Metro ≤1h',
+ auditors:'Humberto',auditorCount:1,golive:'2027-01-01',
+ processing:'TBD MWH',siteLeader:'',events:[
+   {type:'metro-ass',start:'2027-02-01',end:'2027-02-01',label:'Ass.Op.',scope:'Assessment – Fev/27 (data TBC)'},
+   {type:'metro-sa',start:'2027-07-01',end:'2027-07-01',label:'SA',scope:'Self Assessment – Jul/27'}]},
+
+{id:30,code:'DS01',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'SP (Darkstore)',
+ classification:'Darkstore',transport:'car',transportNote:'SP Metro',
+ auditors:'Humberto',auditorCount:1,golive:'2026-10-21',
+ events:[
+   {type:'golive',start:'2026-10-21',end:'2026-10-21',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-21',end:'2026-11-21',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-21',end:'2027-04-21',label:'SA',scope:'Self Assessment +6m (Abr/27)'}]},
+
+{id:31,code:'DS02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'SP (Darkstore)',
+ classification:'Darkstore',transport:'car',transportNote:'SP Metro',
+ auditors:'Humberto',auditorCount:1,golive:'2026-10-21',
+ events:[
+   {type:'golive',start:'2026-10-21',end:'2026-10-21',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-21',end:'2026-11-21',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-21',end:'2027-04-21',label:'SA',scope:'Self Assessment +6m (Abr/27)'}]},
+
+// ========== METRO MEXICO ==========
+{id:40,code:'MXCD20',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Metro Intra',transport:'car',transportNote:'MX local',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-02-27',
+ processing:'3P MWH',siteLeader:'',events:[
+   {type:'metro-ass-late',start:'2026-06-15',end:'2026-06-15',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 15/Jun/26 ⚠'},
+   {type:'metro-sa',start:'2026-08-27',end:'2026-08-27',label:'SA',scope:'Self Assessment +6m (Ago/26)'}]},
+
+{id:41,code:'MXBC01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'BC',city:'Baja California',
+ classification:'Metro Std',transport:'air',transportNote:'BC → voo MX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-03-30',
+ processing:'Meli T+NT',siteLeader:'Sofia Belem Mucino',events:[
+   {type:'metro-ass-late',start:'2026-06-22',end:'2026-06-22',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 22/Jun/26 ⚠'},
+   {type:'metro-sa',start:'2026-09-30',end:'2026-09-30',label:'SA',scope:'Self Assessment +6m (Set/26)'}]},
+
+{id:42,code:'MXPB01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'PB',city:'Puebla',
+ classification:'Metro Std',transport:'car',transportNote:'MX local',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-05-04',
+ processing:'Meli T+NT',siteLeader:'Janai Lara',events:[
+   {type:'metro-ass-late',start:'2026-06-29',end:'2026-06-29',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 29/Jun/26 ⚠'},
+   {type:'metro-sa',start:'2026-11-04',end:'2026-11-04',label:'SA',scope:'Self Assessment +6m (Nov/26)'}]},
+
+{id:43,code:'MXCH02',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CH',city:'Chihuahua',
+ classification:'Metro Intra',transport:'air',transportNote:'Chihuahua → voo MX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-05-18',
+ processing:'Meli T+NT',siteLeader:'TBD',events:[
+   {type:'metro-ass-late',start:'2026-07-06',end:'2026-07-06',label:'⚠',scope:'Assessment Operativo ATRASADO – Proposta: 06/Jul/26 ⚠'},
+   {type:'metro-sa',start:'2026-11-18',end:'2026-11-18',label:'SA',scope:'Self Assessment +6m (Nov/26)'}]},
+
+{id:44,code:'MXNL04',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'NL',city:'Nuevo León',
+ classification:'Metro Std',transport:'air',transportNote:'NL → voo MX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-08-21',
+ processing:'Meli T+NT',siteLeader:'TBD',events:[
+   {type:'golive',start:'2026-08-21',end:'2026-08-21',label:'GL',scope:'Go-Live: 21/Ago/2026'},
+   {type:'metro-ass',start:'2026-09-21',end:'2026-09-21',label:'Ass.Op.',scope:'Assessment Operativo +1m (Set/26)'},
+   {type:'metro-sa',start:'2027-02-21',end:'2027-02-21',label:'SA',scope:'Self Assessment +6m (Fev/27)'}]},
+
+{id:45,code:'MXQR01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'QR',city:'Quintana Roo',
+ classification:'Metro Intra',transport:'air',transportNote:'QR → voo MX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-09-14',
+ events:[
+   {type:'golive',start:'2026-09-14',end:'2026-09-14',label:'GL',scope:'Go-Live: 14/Set/2026'},
+   {type:'metro-ass',start:'2026-10-14',end:'2026-10-14',label:'Ass.Op.',scope:'Assessment Operativo +1m (Out/26)'},
+   {type:'metro-sa',start:'2027-03-14',end:'2027-03-14',label:'SA',scope:'Self Assessment +6m (Mar/27)'}]},
+
+{id:46,code:'MXQT01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'QT',city:'Querétaro',
+ classification:'Metro Intra',transport:'car',transportNote:'QT ≤3h CDMX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-09-28',
+ events:[
+   {type:'golive',start:'2026-09-28',end:'2026-09-28',label:'GL',scope:'Go-Live: 28/Set/2026'},
+   {type:'metro-ass',start:'2026-10-28',end:'2026-10-28',label:'Ass.Op.',scope:'Assessment Operativo +1m (Out/26)'},
+   {type:'metro-sa',start:'2027-03-28',end:'2027-03-28',label:'SA',scope:'Self Assessment +6m (Mar/27)'}]},
+
+{id:47,code:'MXAG01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'AG',city:'Aguascalientes',
+ classification:'Metro Std',transport:'car',transportNote:'AG ≤3h CDMX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-10-12',
+ events:[
+   {type:'golive',start:'2026-10-12',end:'2026-10-12',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-12',end:'2026-11-12',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-12',end:'2027-04-12',label:'SA',scope:'Self Assessment +6m'}]},
+
+{id:48,code:'MXSL01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'SL',city:'San Luis Potosí',
+ classification:'Metro Intra',transport:'car',transportNote:'SL ≤3h CDMX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-10-05',
+ events:[
+   {type:'golive',start:'2026-10-05',end:'2026-10-05',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-05',end:'2026-11-05',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-05',end:'2027-04-05',label:'SA',scope:'Self Assessment +6m'}]},
+
+{id:49,code:'MXCD26',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Metro Intra',transport:'car',transportNote:'CDMX local',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-10-05',
+ events:[
+   {type:'golive',start:'2026-10-05',end:'2026-10-05',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-05',end:'2026-11-05',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-05',end:'2027-04-05',label:'SA',scope:'Self Assessment +6m'}]},
+
+{id:50,code:'MXTA01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'TA',city:'Tamaulipas',
+ classification:'Metro Intra',transport:'air',transportNote:'TA → voo MX',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-10-26',
+ events:[
+   {type:'golive',start:'2026-10-26',end:'2026-10-26',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-26',end:'2026-11-26',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-26',end:'2027-04-26',label:'SA',scope:'Self Assessment +6m'}]},
+
+{id:51,code:'MXCH01',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CH',city:'Chihuahua',
+ classification:'Metro Intra',transport:'air',transportNote:'Chihuahua → voo',
+ auditors:'Arlet | Remmy',auditorCount:1,golive:'2026-10-19',
+ events:[
+   {type:'golive',start:'2026-10-19',end:'2026-10-19',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-19',end:'2026-11-19',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-19',end:'2027-04-19',label:'SA',scope:'Self Assessment +6m'}]},
+
+// ========== METRO CHILE ==========
+{id:60,code:'CLCO01',region:'SA-MLC',country:'CL',flag:'🇨🇱',state:'CO',city:'Coquimbo',
+ classification:'Metro Intra',transport:'air',transportNote:'Coquimbo → voo',
+ auditors:'Auditor CL',auditorCount:1,golive:'2026-07-30',
+ events:[
+   {type:'golive',start:'2026-07-30',end:'2026-07-30',label:'GL',scope:'Go-Live: 30/Jul/2026'},
+   {type:'metro-ass',start:'2026-08-30',end:'2026-08-30',label:'Ass.Op.',scope:'Assessment Operativo +1m (Ago/26)'},
+   {type:'metro-sa',start:'2027-01-30',end:'2027-01-30',label:'SA',scope:'Self Assessment +6m (Jan/27)'}]},
+
+{id:61,code:'CLAN01',region:'SA-MLC',country:'CL',flag:'🇨🇱',state:'AN',city:'Antofagasta',
+ classification:'Metro Std',transport:'air',transportNote:'Antofagasta → voo',
+ auditors:'Auditor CL',auditorCount:1,golive:'2026-08-31',
+ events:[
+   {type:'golive',start:'2026-08-31',end:'2026-08-31',label:'GL',scope:'Go-Live: 31/Ago/2026'},
+   {type:'metro-ass',start:'2026-09-30',end:'2026-09-30',label:'Ass.Op.',scope:'Assessment Operativo +1m (Set/26)'},
+   {type:'metro-sa',start:'2027-02-28',end:'2027-02-28',label:'SA',scope:'Self Assessment +6m (Fev/27)'}]},
+
+{id:62,code:'CLBB02',region:'SA-MLC',country:'CL',flag:'🇨🇱',state:'BB',city:'Concepción',
+ classification:'Metro Std',transport:'air',transportNote:'Concepción → voo',
+ auditors:'Auditor CL',auditorCount:1,golive:'2026-09-05',
+ events:[
+   {type:'golive',start:'2026-09-05',end:'2026-09-05',label:'GL',scope:'Go-Live: 05/Set/2026'},
+   {type:'metro-ass',start:'2026-10-05',end:'2026-10-05',label:'Ass.Op.',scope:'Assessment Operativo +1m (Out/26)'},
+   {type:'metro-sa',start:'2027-03-05',end:'2027-03-05',label:'SA',scope:'Self Assessment +6m (Mar/27)'}]},
+
+// ========== METRO COLOMBIA ==========
+{id:70,code:'COAN01',region:'NA-MCO',country:'CO',flag:'🇨🇴',state:'AN',city:'Medellín',
+ classification:'Metro Std',transport:'air',transportNote:'Medellín → voo',
+ auditors:'Arlet | Denise',auditorCount:1,golive:'2026-06-29',
+ events:[
+   {type:'metro-ass',start:'2026-07-29',end:'2026-07-29',label:'Ass.Op.',scope:'Assessment Operativo +1m (Jul/26)'},
+   {type:'metro-sa',start:'2026-12-29',end:'2026-12-29',label:'SA',scope:'Self Assessment +6m (Dez/26)'}]},
+
+{id:71,code:'COAT01',region:'NA-MCO',country:'CO',flag:'🇨🇴',state:'AT',city:'Barranquilla',
+ classification:'Metro Intra',transport:'air',transportNote:'Barranquilla → voo',
+ auditors:'Arlet | Denise',auditorCount:1,golive:'2026-09-30',
+ events:[
+   {type:'golive',start:'2026-09-30',end:'2026-09-30',label:'GL',scope:'Go-Live: Set/2026'},
+   {type:'metro-ass',start:'2026-10-30',end:'2026-10-30',label:'Ass.Op.',scope:'Assessment Operativo +1m (Out/26)'},
+   {type:'metro-sa',start:'2027-03-30',end:'2027-03-30',label:'SA',scope:'Self Assessment +6m'}]},
+
+{id:72,code:'COVC01',region:'NA-MCO',country:'CO',flag:'🇨🇴',state:'VC',city:'Cali',
+ classification:'Metro Intra',transport:'air',transportNote:'Cali → voo',
+ auditors:'Arlet | Denise',auditorCount:1,golive:'2026-10-30',
+ events:[
+   {type:'golive',start:'2026-10-30',end:'2026-10-30',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-30',end:'2026-11-30',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-30',end:'2027-04-30',label:'SA',scope:'Self Assessment +6m'}]},
+
+{id:73,code:'COCU03',region:'NA-MCO',country:'CO',flag:'🇨🇴',state:'CU',city:'Bogotá',
+ classification:'Metro Intra',transport:'air',transportNote:'Bogotá → voo',
+ auditors:'Arlet | Denise',auditorCount:1,golive:'2026-10-07',
+ events:[
+   {type:'golive',start:'2026-10-07',end:'2026-10-07',label:'GL',scope:'Go-Live: Out/2026'},
+   {type:'metro-ass',start:'2026-11-07',end:'2026-11-07',label:'Ass.Op.',scope:'Assessment Operativo +1m (Nov/26)'},
+   {type:'metro-sa',start:'2027-04-07',end:'2027-04-07',label:'SA',scope:'Self Assessment +6m'}]},
+// ========== NOVOS SITES v2.0 — 23/06/2026 ==========
+{id:97,code:'BRSP26',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Cotia',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Marcelo Lameirinha Hernandes',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:98,code:'BRMG04',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'MG',city:'Extrema',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Eric Leonardo Teodoro Garcia',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:99,code:'BRSP33',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Bernardo do Campo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Carolinne Menezes Dos Santos',golive:'2026-07-23',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-07-23',end:'2026-07-23',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-10-23',end:'2026-10-23',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-01-23',end:'2027-01-23',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:100,code:'BRSP31',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Bernardo do Campo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Marcelo Lameirinha Hernandes',golive:'2026-08-13',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-08-13',end:'2026-08-13',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-11-13',end:'2026-11-13',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-02-13',end:'2027-02-13',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:101,code:'BRSP29',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Cajamar',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Deilieber Tiago Candido',golive:'2026-08-26',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-08-26',end:'2026-08-26',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-11-26',end:'2026-11-26',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-02-26',end:'2027-02-26',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:102,code:'BRSP27',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Marcelo Lameirinha Hernandes',golive:'2026-09-01',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-09-01',end:'2026-09-01',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-12-01',end:'2026-12-01',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-03-01',end:'2027-03-01',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:103,code:'BRSP38',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Bernardo do Campo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Diego Dos Santos Tristao Ribeiro',golive:'2026-09-03',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-09-03',end:'2026-09-03',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-12-03',end:'2026-12-03',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-03-03',end:'2027-03-03',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:104,code:'BRRRS04',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'RS',city:'Gravatai',
+ classification:'Full',transport:'air',transportNote:'RS → voo',
+ siteLeader:'Marcelo Lameirinha Hernandes',golive:'2026-09-10',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-09-10',end:'2026-09-10',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-12-10',end:'2026-12-10',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-03-10',end:'2027-03-10',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:105,code:'BRRRS03',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'RS',city:'Gualba',
+ classification:'Full',transport:'air',transportNote:'RS → voo',
+ siteLeader:'Diego Dos Santos Tristao Ribeiro',golive:'2026-09-18',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-09-18',end:'2026-09-18',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-12-18',end:'2026-12-18',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-03-18',end:'2027-03-18',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:106,code:'BRSP21',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Diogo Stringari',golive:'2026-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-09-30',end:'2026-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-12-30',end:'2026-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-03-30',end:'2027-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:107,code:'BRRJ02-Sorter',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'RJ',city:'Rio de Janeiro',
+ classification:'Full',transport:'air',transportNote:'RJ → voo ~1h',
+ siteLeader:'Diogo Stringari',golive:'2026-10-15',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-10-15',end:'2026-10-15',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-01-15',end:'2027-01-15',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-04-15',end:'2027-04-15',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:108,code:'BRSP16',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Franco da Rocha',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Eric Leonardo Teodoro Garcia',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:109,code:'BRSP39',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Taboao da Serra',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2026-12-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-12-31',end:'2026-12-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-03-31',end:'2027-03-31',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-06-30',end:'2027-06-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:110,code:'BRMG06',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'MG',city:'Extrema',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-03-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-03-31',end:'2027-03-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-06-30',end:'2027-06-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-09-30',end:'2027-09-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:111,code:'BRSP17',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Franco da Rocha',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-03-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-03-31',end:'2027-03-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-06-30',end:'2027-06-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-09-30',end:'2027-09-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:112,code:'BRSP23',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Franco da Rocha',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Diogo Stringari',golive:'2027-03-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-03-31',end:'2027-03-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-06-30',end:'2027-06-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-09-30',end:'2027-09-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:113,code:'BRSP12',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Paulo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-03-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-03-31',end:'2027-03-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-06-30',end:'2027-06-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-09-30',end:'2027-09-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:114,code:'BRSP13',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Paulo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-03-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-03-31',end:'2027-03-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-06-30',end:'2027-06-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-09-30',end:'2027-09-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:115,code:'BRBA03',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'BA',city:'Salvador',
+ classification:'Full',transport:'air',transportNote:'BA → voo',
+ siteLeader:'Eric Leonardo Teodoro Garcia',golive:'2027-03-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-03-31',end:'2027-03-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-06-30',end:'2027-06-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-09-30',end:'2027-09-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:116,code:'BRMG05',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'MG',city:'Minas Gerais',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'Eric Leonardo Teodoro Garcia',golive:'2027-06-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-06-30',end:'2027-06-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-09-30',end:'2027-09-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-12-30',end:'2027-12-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:117,code:'BRSP32',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Jundiai',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-30',end:'2027-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-30',end:'2027-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-30',end:'2028-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:118,code:'BRSC03',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SC',city:'TBC',
+ classification:'Full',transport:'air',transportNote:'',
+ siteLeader:'TBD',golive:'2027-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-30',end:'2027-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-30',end:'2027-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-30',end:'2028-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:119,code:'BRRRS02',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'RS',city:'TBC',
+ classification:'Full',transport:'air',transportNote:'',
+ siteLeader:'TBD',golive:'2027-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-30',end:'2027-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-30',end:'2027-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-30',end:'2028-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:120,code:'BRSP37',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'Guarulhos',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-30',end:'2027-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-30',end:'2027-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-30',end:'2028-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:121,code:'BRSP20',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Paulo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2027-12-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-12-31',end:'2027-12-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2028-03-31',end:'2028-03-31',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-06-30',end:'2028-06-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:122,code:'BRDF03',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'DF',city:'TBC',
+ classification:'Full',transport:'air',transportNote:'',
+ siteLeader:'TBD',golive:'2028-06-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2028-06-30',end:'2028-06-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2028-09-30',end:'2028-09-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-12-30',end:'2028-12-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:123,code:'BRSP22',region:'SA-MLB',country:'BR',flag:'🇧🇷',state:'SP',city:'São Paulo',
+ classification:'Full',transport:'car',transportNote:'',
+ siteLeader:'TBD',golive:'2028-12-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2028-12-31',end:'2028-12-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2029-03-31',end:'2029-03-31',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2029-06-30',end:'2029-06-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:124,code:'MXCD08',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'Monica Hernandez',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:125,code:'MXJC02',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'JL',city:'Guadalajara',
+ classification:'Full',transport:'air',transportNote:'Guadalajara → voo',
+ siteLeader:'Manuel Camacho',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:126,code:'MXRC03-Sorter',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Estado de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'Monica Hernández',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:127,code:'MXCD13+MXCD21',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'HG',city:'Hidalgo',
+ classification:'Full',transport:'car',transportNote:'MX local',
+ siteLeader:'Oscar Quiroz',golive:'2026-07-27',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-07-27',end:'2026-07-27',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-10-27',end:'2026-10-27',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-01-27',end:'2027-01-27',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:128,code:'MXNL02',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'NL',city:'Nuevo León',
+ classification:'Full',transport:'air',transportNote:'NL → voo',
+ siteLeader:'Manuel Camacho',golive:'2026-08-31',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-08-31',end:'2026-08-31',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2026-11-30',end:'2026-11-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-02-28',end:'2027-02-28',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:129,code:'MXCD16',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Tultepec',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'Chrystian Camilo Duque',golive:'2027-01-25',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-01-25',end:'2027-01-25',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-04-25',end:'2027-04-25',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-07-25',end:'2027-07-25',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:130,code:'MXCD17',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Tultepec',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'Chrystian Camilo Duque',golive:'2027-09-06',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-06',end:'2027-09-06',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-06',end:'2027-12-06',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-06',end:'2028-03-06',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:131,code:'MXCD19',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'TBD',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:132,code:'MXJC03',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'JL',city:'Jalisco',
+ classification:'Full',transport:'air',transportNote:'Jalisco → voo',
+ siteLeader:'TBD',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:133,code:'MXNL03',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'NL',city:'Nuevo León',
+ classification:'Full',transport:'air',transportNote:'NL → voo',
+ siteLeader:'TBD',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:134,code:'MXCD15',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'Oscar Quiroz',golive:'2027-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-30',end:'2027-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-30',end:'2027-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-30',end:'2028-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:135,code:'MXCD18',region:'NA-MLM',country:'MX',flag:'🇲🇽',state:'CDMX',city:'Ciudad de México',
+ classification:'Full',transport:'car',transportNote:'CDMX local',
+ siteLeader:'TBD',golive:'2028-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2028-09-30',end:'2028-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2028-12-30',end:'2028-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2029-03-30',end:'2029-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:136,code:'ARBA03',region:'SA-MLA',country:'AR',flag:'🇦🇷',state:'BA',city:'Buenos Aires',
+ classification:'Full',transport:'air',transportNote:'Buenos Aires → voo',
+ siteLeader:'Ignacio Dorgan',golive:'2026-10-26',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-10-26',end:'2026-10-26',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-01-26',end:'2027-01-26',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-04-26',end:'2027-04-26',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:137,code:'ARCO01',region:'SA-MLA',country:'AR',flag:'🇦🇷',state:'CO',city:'Córdoba',
+ classification:'Full',transport:'air',transportNote:'Córdoba → voo',
+ siteLeader:'Ignacio Dorgan',golive:'2027-09-30',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2027-09-30',end:'2027-09-30',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-12-30',end:'2027-12-30',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2028-03-30',end:'2028-03-30',label:'AR',scope:'Auditoria Regional +6m'}]},
+{id:138,code:'ARBA01',region:'SA-MLA',country:'AR',flag:'🇦🇷',state:'BA',city:'Buenos Aires',
+ classification:'Full',transport:'air',transportNote:'Buenos Aires → voo',
+ siteLeader:'Ignacio Dorgan',golive:'',
+ auditors:'',auditorCount:0,
+ events:[]},
+{id:139,code:'CLRM04',region:'SA-MLC',country:'CL',flag:'🇨🇱',state:'RM',city:'Santiago',
+ classification:'Full',transport:'air',transportNote:'Santiago → voo',
+ siteLeader:'Delia Delgado',golive:'2026-10-22',
+ auditors:'',auditorCount:0,
+ events:[{type:'golive',start:'2026-10-22',end:'2026-10-22',label:'GL',scope:'Go-Live'},
+   {type:'metro-ass',start:'2027-01-22',end:'2027-01-22',label:'AO',scope:'Assessment Operativo +3m'},
+   {type:'full-ao',start:'2027-04-22',end:'2027-04-22',label:'AR',scope:'Auditoria Regional +6m'}]}];
+
+let SITES = SITES_DEFAULT.map(s=>({...s, events:s.events.map(e=>({...e}))}));
+function saveSites(){
+  try{
+    var save=SITES.map(function(s){
+      var r={};
+      // Save only editable fields + site code as key
+      ['code','country','state','city','classification','transport','transportNote',
+       'auditors','golive','auditDate','auditType','processing','siteLeader','statusOverride'].forEach(function(k){
+        if(s[k]!==undefined)r[k]=s[k];
+      });
+      return r;
+    });
+    localStorage.setItem('audit_sites_v2', JSON.stringify(save));
+  }catch(e){}
+}
+function loadSites(){
+  try{
+    var raw=localStorage.getItem('audit_sites_v2');
+    if(!raw)return;
+    var saved=JSON.parse(raw);
+    saved.forEach(function(saved_s){
+      var site=SITES.find(function(s){return s.code===saved_s.code;});
+      if(site){
+        ['country','state','city','classification','transport','transportNote',
+         'auditors','golive','auditDate','auditType','processing','siteLeader','statusOverride'].forEach(function(k){
+          if(saved_s[k]!==undefined)site[k]=saved_s[k];
+        });
+      }
+    });
+  }catch(e){}
+}
+loadSites();
+
+// ================================================================
+// AUDITORS – base data from Std Assurance Exe Team
+// ================================================================
+const AUDITORS=[
+  {name:'Humberto', role:'Auditor Líder', city:'Bragança Paulista', country:'BR', region:'South'},
+  {name:'Felipe',   role:'Auditor',       city:'S. Bernardo do Campo', country:'BR', region:'South'},
+  {name:'Gisele',   role:'Auditor',       city:'Cotia',            country:'BR', region:'South'},
+  {name:'Rita',     role:'Auditor',       city:'Socorro',          country:'BR', region:'South'},
+  {name:'Arlet',    role:'Auditor Líder', city:'Querétaro',        country:'MX', region:'North'},
+  {name:'Remmy',    role:'Auditor',       city:'Querétaro',        country:'MX', region:'North'},
+  {name:'Denise',   role:'Auditor',       city:'CD México',        country:'MX', region:'North'},
+  {name:'Alejandro',role:'Auditor',       city:'CD México',        country:'MX', region:'North'},
+];
+function auditorInfo(name){return AUDITORS.find(function(a){return a.name===name;})||null;}
+function suggestTransport(siteCountry,auditorsStr){
+  if(!auditorsStr)return null;
+  var names=auditorsStr.split(' | ').filter(Boolean);
+  if(!names.length)return null;
+  var needsAir=names.some(function(n){var a=auditorInfo(n);return a&&a.country!==siteCountry;});
+  return needsAir?'air':'car';
+}
+
+// ================================================================
+// MONTHS (Jun/26 → Dez/27)
+// ================================================================
+const MONTHS=[
+  {y:2026,m:5,label:'Jun/26',days:30},
+  {y:2026,m:6,label:'Jul/26',days:31},
+  {y:2026,m:7,label:'Ago/26',days:31},
+  {y:2026,m:8,label:'Set/26',days:30},
+  {y:2026,m:9,label:'Out/26',days:31},
+  {y:2026,m:10,label:'Nov/26',days:30},
+  {y:2026,m:11,label:'Dez/26',days:31},
+  {y:2027,m:0,label:'Jan/27',days:31},
+  {y:2027,m:1,label:'Fev/27',days:28},
+  {y:2027,m:2,label:'Mar/27',days:31},
+  {y:2027,m:3,label:'Abr/27',days:30},
+  {y:2027,m:4,label:'Mai/27',days:31},
+  {y:2027,m:5,label:'Jun/27',days:30},
+  {y:2027,m:6,label:'Jul/27',days:31},
+  {y:2027,m:7,label:'Ago/27',days:31},
+  {y:2027,m:8,label:'Set/27',days:30},
+  {y:2027,m:9,label:'Out/27',days:31},
+  {y:2027,m:10,label:'Nov/27',days:30},
+  {y:2027,m:11,label:'Dez/27',days:31},
+];
+
+const BAR_CLS={
+  'full-ar':'bar-full-ar','full-ao':'bar-full-ao',
+  'metro-ass':'bar-metro-ok','metro-ass-late':'bar-late-pulse',
+  'metro-sa':'bar-metro-sa','metro-sa-late':'bar-late-pulse',
+  'golive':'bar-gl','done':'bar-done'
+};
+// ================================================================
+// REGIONS
+// ================================================================
+const REGIONS={
+  North:{
+    label:'North America',emoji:'🌎',
+    color:'#E65100',bg:'#FFF3E0',
+    countries:['MX','CO','PE','US'],
+    flags:{MX:'🇲🇽',CO:'🇨🇴',PE:'🇵🇪',US:'🇺🇸'},
+    names:{MX:'México',CO:'Colômbia',PE:'Peru',US:'USA'},
+    team:'Arlet · Remmy · Denise · Alejandro',
+    teamColor:'#E65100'
+  },
+  South:{
+    label:'South America',emoji:'🌎',
+    color:'#1565C0',bg:'#E8F5E9',
+    countries:['BR','AR','CL','UY'],
+    flags:{BR:'🇧🇷',AR:'🇦🇷',CL:'🇨🇱',UY:'🇺🇾'},
+    names:{BR:'Brasil',AR:'Argentina',CL:'Chile',UY:'Uruguai'},
+    team:'Humberto · Felipe · Gisele · Rita',
+    teamColor:'#1565C0'
+  }
+};
+// ================================================================
+// I18N – LABELS + LANG TOGGLE
+// ================================================================
+const LABELS={
+  pt:{
+    // Tabs
+    tab_gantt:'📊 Gantt', tab_explorer:'🔍 Explorer', tab_overlap:'⚡ Sobreposições',
+    tab_exec:'📈 Resumo Executivo', tab_editor:'🗄️ Base de Dados', tab_desl:'✈ Deslocamento',
+    // Columns
+    col_code:'FC', col_country:'País', col_city:'Cidade', col_state:'UF',
+    col_classification:'Tipo', col_golive:'Go-Live', col_siteLeader:'Site Leader',
+    col_processing:'Tipo Processam.', col_auditType:'Auditoria', col_auditors:'Auditores',
+    col_auditDate:'Data Prevista', col_statusOverride:'Status',
+    col_transport:'Deslocamento', col_transportNote:'Nota',
+    // Status
+    status_done:'Concluído', status_late:'Atrasado', status_urgent:'Em Andamento',
+    status_ok:'⏱ Previsto', status_tbd:'A Definir',
+    // Exec card titles
+    exec1:'🎯 Status × Tipo', exec2:'🌎 Sites por País × Tipo',
+    exec3:'📅 Auditorias por Mês (Jun/26–Dez/27)', exec4:'🚗✈ Deslocamento × Cobertura',
+    exec5:'👥 Carga por Auditor × Tipo', exec6:'📊 Progresso por Tipo de Site',
+    // Filter chips
+    f_all:'Todas', f_region:'REGIÃO:', f_type:'TIPO:', f_status:'STATUS:',
+    f_done:'✅ Concluído', f_late:'⚠ Atrasado', f_urgent:'🔔 Urgente', f_ok:'⏱ Previsto',
+    f_exec_region:'REGIÃO:',
+    // KPI bar
+    kpi_late:'⚠ Atrasados', kpi_urg:'🔔 Urgentes', kpi_ok:'⏱ Previstos', kpi_done:'✅ Concluídos',
+    kd_late:'⚠ Atrasados', kd_urg:'🔔 Urgentes ≤45 dias', kd_ok:'⏱ Previstos', kd_done:'✅ Concluídos',
+    kpi_details:'▼ detalhes',
+    // Editor
+    add_row:'+ Adicionar novo site',
+    transport_car:'🚗 Terrestre', transport_air:'✈ Aéreo',
+    // Misc
+    insight_air:'💡 Top viagens aéreas por auditor:',
+    insight_days:'📊 Estimativa auditor-dias:',
+  },
+  es:{
+    // Tabs
+    tab_gantt:'📊 Gantt', tab_explorer:'🔍 Explorer', tab_overlap:'⚡ Superposiciones',
+    tab_exec:'📈 Resumen Ejecutivo', tab_editor:'🗄️ Base de Datos', tab_desl:'✈ Viaje',
+    // Columns
+    col_code:'FC', col_country:'País', col_city:'Ciudad', col_state:'Estado',
+    col_classification:'Tipo', col_golive:'Go-Live', col_siteLeader:'Site Leader',
+    col_processing:'Tipo Proceso', col_auditType:'Auditoría', col_auditors:'Auditores',
+    col_auditDate:'Fecha Prevista', col_statusOverride:'Estado',
+    col_transport:'Viaje', col_transportNote:'Nota',
+    // Status
+    status_done:'Completado', status_late:'Atrasado', status_urgent:'En Proceso',
+    status_ok:'⏱ Planificado', status_tbd:'Por Definir',
+    // Exec card titles
+    exec1:'🎯 Status × Tipo', exec2:'🌎 Sites por País × Tipo',
+    exec3:'📅 Auditorías por Mes (Jun/26–Dic/27)', exec4:'🚗✈ Viaje × Cobertura',
+    exec5:'👥 Carga por Auditor × Tipo', exec6:'📊 Progreso por Tipo de Site',
+    // Filter chips
+    f_all:'Todas', f_region:'REGIÓN:', f_type:'TIPO:', f_status:'ESTADO:',
+    f_done:'✅ Completado', f_late:'⚠ Atrasado', f_urgent:'🔔 En Proceso', f_ok:'⏱ Planificado',
+    f_exec_region:'REGIÓN:',
+    // KPI bar
+    kpi_late:'⚠ Atrasados', kpi_urg:'🔔 Urgentes', kpi_ok:'⏱ Planificados', kpi_done:'✅ Completados',
+    kd_late:'⚠ Atrasados', kd_urg:'🔔 Urgentes ≤45 días', kd_ok:'⏱ Planificados', kd_done:'✅ Completados',
+    kpi_details:'▼ detalles',
+    // Editor
+    add_row:'+ Agregar nuevo site',
+    transport_car:'🚗 Terrestre', transport_air:'✈ Aéreo',
+    // Misc
+    insight_air:'💡 Top viajes aéreos por auditor:',
+    insight_days:'📊 Estimado auditor-días:',
+  }
+};
+let lang=localStorage.getItem('audit_lang')||'pt';
+function L(key){return (LABELS[lang]&&LABELS[lang][key])||LABELS.pt[key]||key;}
+function setLang(l,btn){
+  lang=l;
+  try{localStorage.setItem('audit_lang',l);}catch(e){}
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('lang-btn-on');});
+  btn.classList.add('lang-btn-on');
+  // Update data-i18n static elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n'); var v=L(k); if(v)el.textContent=v;
+  });
+  // Update tab labels
+  document.querySelectorAll('.tab[data-tab-id]').forEach(function(b){
+    var tid=b.getAttribute('data-tab-id'); var v=L('tab_'+tid); if(v)b.textContent=v;
+  });
+  // Re-render active section
+  var active=document.querySelector('.section.active');
+  if(!active)return;
+  var aid=active.id;
+  if(aid==='tab-editor'){
+    document.getElementById('ed-filter-bar').innerHTML='';
+    buildEditor();
+  } else if(aid==='tab-exec'){
+    document.getElementById('exec-grid').innerHTML='';
+    document.getElementById('exec-filter-bar').innerHTML='';
+    buildExecSummary();
+  } else if(aid==='tab-explorer'){
+    document.getElementById('exp-filters').innerHTML='';
+    buildExplorerFilters(); renderExplorer();
+  }
+}
+
+function getRegion(country){
+  for(var rk in REGIONS){if(REGIONS[rk].countries.includes(country))return rk;}
+  return 'South';
+}
+
+
+// ================================================================
+// GANTT FILTER STATE
+// ================================================================
+let GF={
+  country:new Set(['BR','MX','CL','CO','AR','PE']),
+  type:new Set(['Full','Metro Std','Metro Intra','Darkstore']),
+  transport:new Set(['car','air']),
+  status:new Set(['late','urgent','ok','done','tbd'])
+};
+
+function toggleGF(key,val,checked){
+  if(checked)GF[key].add(val);
+  else GF[key].delete(val);
+  const lbl=document.querySelector(`label[class*="fcb"] input[data-gk="${key}"][data-gv="${val}"]`);
+  if(lbl)lbl.closest('label').classList.toggle('checked',checked);
+  applyGanttFilters();
+}
+
+function applyGanttFilters(){
+  const q=document.getElementById('gsearch').value.toLowerCase();
+  let count=0;
+  document.querySelectorAll('.g-row').forEach(row=>{
+    const s=SITES.find(x=>x.id===+row.dataset.sid);
+    if(!s){row.classList.add('filtered-out');return;}
+    let show=true;
+    if(!GF.country.has(s.country))show=false;
+    if(!GF.type.has(s.classification))show=false;
+    if(!GF.transport.has(s.transport))show=false;
+    const st=siteStatus(s);
+    if(!GF.status.has(st))show=false;
+    if(q&&!(s.code.toLowerCase().includes(q)||s.city.toLowerCase().includes(q)||(s.state||'').toLowerCase().includes(q)))show=false;
+    row.classList.toggle('filtered-out',!show);
+    if(show)count++;
+  });
+  document.getElementById('vis-count').textContent=count+' sites';
+  document.getElementById('gantt-nores').classList.toggle('show',count===0);
+}
+
+function siteStatus(s){
+  // Manual override takes priority
+  if(s.statusOverride==='Concluído')return'done';
+  if(s.statusOverride==='Atrasado')return'late';
+  if(s.statusOverride==='Em Andamento')return'urgent';
+  if(s.statusOverride==='Planejado')return'ok';
+  // Auto: check if all events are 'done'
+  if(s.events.every(e=>e.type==='done'))return'done';
+  // Auto: check main event date
+  const mainEv=s.events.find(e=>e.type.includes('ass')||e.type.startsWith('full'));
+  if(!mainEv)return'tbd';
+  if(mainEv.type.includes('late'))return'late';
+  const d=new Date(mainEv.start);
+  const diff=(d-TODAY)/86400000;
+  if(diff<0)return'late';
+  if(diff<=45)return'urgent';
+  return'ok';
+}
+
+// ================================================================
+// BUILD GANTT HEADER (two-level: months + week dates)
+// ================================================================
+function buildGanttHeader(){
+  const mC=document.getElementById('month-hdr');
+  mC.innerHTML='';
+  const curM=TODAY.getMonth(), curY=TODAY.getFullYear();
+  // Use MONTHS array for exact calendar-day widths (avoids Monday-count overflow)
+  MONTHS.forEach(mg=>{
+    const div=document.createElement('div');
+    const isCur=mg.m===curM&&mg.y===curY;
+    const is27=mg.y===2027;
+    div.className='month-h-top'+(is27?' y27':'')+(isCur?' cur':'');
+    div.style.width=(mg.days/TOTAL_DAYS*100).toFixed(4)+'%';
+    const shortY=String(mg.y).slice(2);
+    div.textContent=mg.label.replace('/'+shortY,'').toUpperCase()+'/'+shortY;
+    mC.appendChild(div);
+  });
+  // Today line
+  const todayOff=doff(TODAY.toISOString().split('T')[0]);
+  if(todayOff>=0&&todayOff<=TOTAL_DAYS){
+    const tpct=(todayOff/TOTAL_DAYS*100).toFixed(3);
+    mC.insertAdjacentHTML('beforeend',
+      `<div class="today-line" style="left:${tpct}%;height:100%;top:0;z-index:4"></div>`);
+    document.querySelectorAll('.g-tl').forEach(tl=>{
+      const ln=document.createElement('div');ln.className='today-line';tl.appendChild(ln);
+    });
+  }
+}
+function buildMonthHeaders(){buildGanttHeader();}
+
+function buildGanttRows(){
+  const body=document.getElementById('gantt-body');
+
+  // Compute alternating month background once for all rows
+  let bgStops=[];let cumD=0;
+  MONTHS.forEach((m,i)=>{
+    const p1=(cumD/TOTAL_DAYS*100).toFixed(2);
+    const p2=((cumD+m.days)/TOTAL_DAYS*100).toFixed(2);
+    const c=i%2===0?'rgba(0,0,0,.025)':'transparent';
+    bgStops.push(c+' '+p1+'%',c+' '+p2+'%');
+    cumD+=m.days;
+  });
+  const MONTH_BG='linear-gradient(to right,'+bgStops.join(',')+')';
+
+  Object.entries(REGIONS).forEach(([rk,rv])=>{
+    const regionSites=SITES.filter(s=>rv.countries.includes(s.country));
+    if(!regionSites.length)return;
+
+    // Region separator
+    const rsep=document.createElement('div');
+    rsep.className='region-sep region-'+rk.toLowerCase();
+    rsep.innerHTML='<span>'+rv.emoji+' '+rv.label
+      +' <span style="font-weight:400;font-size:10px;margin-left:6px">('+regionSites.length+' sites)</span></span>'
+      +'<span class="region-team" style="color:'+rv.teamColor+'">👥 '+rv.team+'</span>';
+    body.appendChild(rsep);
+
+    rv.countries.forEach(cc=>{
+      const cs=regionSites.filter(s=>s.country===cc);
+      if(!cs.length)return;
+      const flag=rv.flags[cc]||'';
+      const cname=rv.names[cc]||cc;
+      const sep=document.createElement('div');
+      sep.className='country-sep';
+      var ccLower=cc.toLowerCase();
+      var flagImg=document.createElement('img');
+      flagImg.src='https://flagcdn.com/20x15/'+ccLower+'.png';
+      flagImg.alt=cc;
+      flagImg.onerror=function(){this.style.display='none';};
+      sep.appendChild(flagImg);
+      var nameSpan=document.createElement('span');nameSpan.textContent=cname;
+      sep.appendChild(nameSpan);
+      var cntSpan=document.createElement('span');cntSpan.className='csites';
+      cntSpan.textContent='('+cs.length+' sites)';
+      sep.appendChild(cntSpan);
+      body.appendChild(sep);
+
+      // Sort sites by main event date (future events first by date, done-only sites by last done date)
+      const csSorted=[...cs].sort((a,b)=>{
+        const getDate=s=>{
+          const fev=s.events.find(e=>e.type!=='done'&&e.type!=='golive');
+          if(fev)return fev.start;
+          const devs=s.events.filter(e=>e.type==='done');
+          return devs.length?devs[devs.length-1].start:'2099-01-01';
+        };
+        return getDate(a).localeCompare(getDate(b));
+      });
+
+      csSorted.forEach(s=>{
+        const row=document.createElement('div');
+        row.className='g-row';
+        row.dataset.sid=s.id;
+
+        const tc=s.transport==='car'?'🚗':'✈';
+        const bc={'Full':'b-full','Metro Std':'b-mstd','Metro Intra':'b-mintra','Darkstore':'b-ds'}[s.classification]||'b-full';
+        const st=siteStatus(s);
+        const stBadge={'late':'<span class="b b-late">⚠ Atrasado</span>','urgent':'<span class="b" style="background:#FFF3E0;color:#E65100">🔔 Urgente</span>','done':'<span class="b" style="background:#ECEFF1;color:#546E7A">✅ Concluído</span>','ok':'<span class="b b-ok">✓ Previsto</span>'}[st]||'';
+
+        const left=`<div class="g-info">
+
+          <div style="min-width:0">
+            <div class="g-code">${s.code}</div>
+            <div class="g-city">${s.city}${s.state?', '+s.state:''}</div>
+          </div>
+          <div class="badges" style="margin-left:4px">
+            <span class="b ${bc}">${s.classification}</span>
+            ${stBadge}
+            ${st==='late'&&s.golive?`<span class="b" style="background:#FCE4EC;color:#880E4F;font-size:8px">🔴 GL: ${s.golive.slice(5,7)+'/'+s.golive.slice(0,4)}</span>`:''}
+          </div>
+          <span style="margin-left:auto;font-size:13px" title="${s.transportNote}">${tc}</span>
+        </div>`;
+
+        let bars='';
+        s.events.forEach(ev=>{
+          if(ev.type==='golive'&&st==='late')return;
+          const sd=doff(ev.start);
+          const ed=ev.end?doff(ev.end):sd;
+          if(ed<0)return;
+          const dur=Math.max(ed-sd+1,1);
+          const isPoint=ev.type==='golive'||dur<=1;
+          const cls=BAR_CLS[ev.type]||'bar-metro-ok';
+          if(isPoint){
+            const cx=((sd+0.5)/TOTAL_DAYS*100).toFixed(3);
+            bars+=`<div class="bar ${cls}" style="left:calc(${cx}% - 5px)"
+              onmouseenter="showTip(event,'${s.code}','${ev.scope.replace(/'/g,'&#39;')}','${ev.start}','${s.auditors}','${s.transportNote}')"
+              onmouseleave="hideTip()"></div>`;
+          } else {
+            const {left:lp,w:wp}=pct(ev.start,dur);
+            const lbl=dur>4?ev.label:'';
+            bars+=`<div class="bar ${cls}" style="left:${lp};width:${wp}"
+              onmouseenter="showTip(event,'${s.code}','${ev.scope.replace(/'/g,'&#39;')}','${ev.start}','${s.auditors}','${s.transportNote}')"
+              onmouseleave="hideTip()">${lbl}</div>`;
+          }
+        });
+
+        row.innerHTML=left+`<div class="g-tl" style="background-image:${MONTH_BG}">${bars}</div>`;
+        body.appendChild(row);
+      }); // cs.forEach
+    }); // rv.countries.forEach
+  }); // REGIONS.forEach
+}
+
+function showTip(e,code,scope,date,auditors,transport){
+  const tip=document.getElementById('tip');
+  const d=new Date(date);
+  tip.innerHTML=`<strong>${code}</strong>
+    <div class="tt-r"><span class="tt-k">Operação</span><span class="tt-v" style="max-width:160px;text-align:right">${scope}</span></div>
+    <div class="tt-r"><span class="tt-k">Data</span><span class="tt-v">${d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})}</span></div>
+    <div class="tt-r"><span class="tt-k">Auditores</span><span class="tt-v">${auditors}</span></div>
+    <div class="tt-r"><span class="tt-k">Deslocamento</span><span class="tt-v">${transport}</span></div>`;
+  tip.style.display='block';
+  const tw=tip.offsetWidth||260;
+  const th=tip.offsetHeight||100;
+  const vw=window.innerWidth;
+  const vh=window.innerHeight;
+  const cx=e.clientX;
+  const cy=e.clientY;
+  let left=cx+14;
+  let top=cy-10;
+  if(left+tw>vw-8)left=cx-tw-14;
+  if(left<8)left=8;
+  if(top+th>vh-8)top=vh-th-8;
+  if(top<8)top=8;
+  tip.style.left=left+'px';
+  tip.style.top=top+'px';
+}
+function hideTip(){document.getElementById('tip').style.display='none';}
+
+// ================================================================
+// KPIs
+// ================================================================
+function updateKPIs(){
+  const all=SITES;
+  const byStatus={late:[],urgent:[],ok:[],done:[]};
+  all.forEach(s=>{
+    const st=siteStatus(s);
+    if(st==='late')byStatus.late.push(s);
+    else if(st==='urgent')byStatus.urgent.push(s);
+    else if(st==='ok')byStatus.ok.push(s);
+    else if(st==='done')byStatus.done.push(s);
+  });
+  document.getElementById('k-total').textContent=all.length;
+  document.getElementById('k-full').textContent=all.filter(s=>s.classification==='Full').length;
+  document.getElementById('k-metro').textContent=all.filter(s=>s.classification!=='Full').length;
+  document.getElementById('k-br').textContent=all.filter(s=>s.country==='BR').length;
+  document.getElementById('k-mx').textContent=all.filter(s=>s.country==='MX').length;
+  document.getElementById('k-cl').textContent=all.filter(s=>s.country==='CL').length;
+  document.getElementById('k-co').textContent=all.filter(s=>s.country==='CO').length;
+  document.getElementById('k-ar').textContent=all.filter(s=>s.country==='AR').length;
+  document.getElementById('k-late').textContent=byStatus.late.length;
+  document.getElementById('k-urg').textContent=byStatus.urgent.length;
+  document.getElementById('k-ok').textContent=byStatus.ok.length;
+  document.getElementById('k-done').textContent=byStatus.done.length;
+  document.getElementById('vis-count').textContent=all.length+' sites';
+  // Sub-labels: Full / Metro breakdown
+  const subMap={late:'k-late-sub',urgent:'k-urg-sub',ok:'k-ok-sub',done:'k-done-sub'};
+  Object.entries(byStatus).forEach(([st,sites])=>{
+    const nF=sites.filter(s=>s.classification==='Full').length;
+    const nM=sites.length-nF;
+    const el=document.getElementById(subMap[st]);
+    if(el)el.textContent=`${nF}F · ${nM}M`;
+  });
+  // Populate detail chips: Full + Metro sub-sections
+  const clsMap={late:'kd-chip kd-chip-late',urgent:'kd-chip kd-chip-urg',ok:'kd-chip kd-chip-ok',done:'kd-chip kd-chip-done'};
+  Object.entries(byStatus).forEach(([st,sites])=>{
+    const fullSites=sites.filter(s=>s.classification==='Full');
+    const metroSites=sites.filter(s=>s.classification!=='Full');
+    const _dm={late:'late',urgent:'urg',ok:'ok',done:'done'};
+    const elF=document.getElementById('kd-'+(_dm[st]||st)+'-full');
+    const elM=document.getElementById('kd-'+(_dm[st]||st)+'-metro');
+    function renderGroup(el,grpSites){
+      if(!el)return;
+      if(!grpSites.length){el.innerHTML='<span style="font-size:10px;color:#ccc">—</span>';return;}
+      const byC={};
+      grpSites.forEach(s=>{if(!byC[s.country])byC[s.country]={flag:s.flag,codes:[]};byC[s.country].codes.push(s.code);});
+      let h='';
+      Object.entries(byC).forEach(([cc,g])=>{
+        h+='<div style="width:100%;margin:2px 0 1px;font-size:9px;color:#888;font-weight:700"><img src="https://flagcdn.com/16x12/'+cc.toLowerCase()+'.png" alt="'+cc+'" style="vertical-align:middle;margin-right:3px"> '+cc+'</div>';
+        g.codes.forEach(code=>{h+=`<span class="${clsMap[st]}">${code}</span>`;});
+      });
+      el.innerHTML=h;
+    }
+    renderGroup(elF,fullSites);
+    renderGroup(elM,metroSites);
+  });
+}
+
+function toggleKpiDetail(){
+  const panel=document.getElementById('kpi-detail-panel');
+  const btn=document.getElementById('kpi-toggle-btn');
+  const open=panel.style.display==='none';
+  panel.style.display=open?'grid':'none';
+  btn.textContent=open?'▲ fechar':'▼ detalhes';
+}
+
+// ================================================================
+// OVERLAP DETECTION
+// ================================================================
+let ovRegion='all';
+function ovSetRegion(r,btn){
+  ovRegion=r;
+  document.querySelectorAll('#ov-btn-all,#ov-btn-south,#ov-btn-north').forEach(function(b){b.classList.remove('ed-fchip-on');});
+  btn.classList.add('ed-fchip-on');
+  var hdr=document.getElementById('ov-hdr-text');
+  if(r==='south'&&hdr)hdr.textContent='⚡ Sobreposições — Equipe South America (BR / AR / CL)';
+  else if(r==='north'&&hdr)hdr.textContent='⚡ Sobreposições — Equipe North America (MX / CO / PE)';
+  else if(hdr)hdr.textContent='⚡ Sobreposições — Todas as Equipes';
+  buildOverlap();
+}
+function buildOverlap(){
+  var southCountries=['BR','AR','CL'];
+  var northCountries=['MX','CO','PE'];
+  var fullCCs = ovRegion==='north'?northCountries: ovRegion==='south'?southCountries:[...southCountries,...northCountries];
+  var metroCCs= ovRegion==='north'?northCountries: ovRegion==='south'?southCountries:[...southCountries,...northCountries];
+  const fullSA=SITES.filter(s=>s.classification==='Full'&&fullCCs.includes(s.country));
+  const metroSA=SITES.filter(s=>s.classification!=='Full'&&metroCCs.includes(s.country));
+  const overlaps=[];
+  
+  fullSA.forEach(full=>{
+    full.events.forEach(fe=>{
+      if(fe.type==='golive'||fe.type==='done')return;
+      const fS=new Date(fe.start), fE=new Date(fe.end||fe.start);
+      const wS=new Date(fS); wS.setDate(wS.getDate()-((wS.getDay()+6)%7)); // Monday
+      const wE=new Date(wS); wE.setDate(wE.getDate()+6);
+      
+      metroSA.forEach(metro=>{
+        metro.events.forEach(me=>{
+          if(me.type==='golive')return;
+          const mD=new Date(me.start);
+          if(mD>=wS&&mD<=wE){
+            const wLabel=wS.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})+
+              '–'+wE.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
+            overlaps.push({week:wLabel,fullCode:full.code,fullCity:full.city,fullOp:fe.label,
+              metroCode:metro.code,metroCity:metro.city,metroOp:me.label,
+              fullAud:full.auditors,metroAud:metro.auditors});
+          }
+        });
+      });
+    });
+  });
+  
+  const tbody=document.getElementById('ov-body');
+  if(!overlaps.length){
+    tbody.innerHTML='<tr><td colspan="7" style="color:#888;padding:16px;text-align:center">✓ Nenhuma sobreposição crítica detectada.</td></tr>';
+    return;
+  }
+  overlaps.forEach(ov=>{
+    tbody.insertAdjacentHTML('beforeend',`<tr>
+      <td><strong style="font-size:10px">${ov.week.split('–')[0]}</strong></td>
+      <td style="font-size:10px">${ov.week}</td>
+      <td><strong>${ov.fullCode}</strong><br><span style="font-size:10px;color:#888">${ov.fullCity}</span></td>
+      <td><strong style="color:#4285F4">${ov.metroCode}</strong><br><span style="font-size:10px;color:#888">${ov.metroCity}</span></td>
+      <td style="font-size:10px">${ov.fullAud}</td>
+      <td style="font-size:10px">${ov.metroAud}</td>
+      <td><span class="ov-tag" style="background:#E8F5E9;color:#1B5E20">✓ Gerenciável</span><br>
+          <span style="font-size:9px;color:#888">Humberto faz Metro, time faz Full</span></td>
+    </tr>`);
+  });
+}
+
+// ================================================================
+// EXPLORER
+// ================================================================
+const EXP_FILTERS={
+  country:{label:'País',opts:[{v:'BR',l:'Brasil'},{v:'MX',l:'México'},{v:'PE',l:'Peru'},{v:'CL',l:'Chile'},{v:'CO',l:'Colômbia'},{v:'AR',l:'Argentina'}]},
+  classification:{label:'Tipo',opts:[{v:'Full',l:'Full'},{v:'Metro Std',l:'Metro Std'},{v:'Metro Intra',l:'Metro Intra'},{v:'Darkstore',l:'Darkstore'}]},
+  transport:{label:'Deslocamento',opts:[{v:'car',l:'🚗 Terrestre'},{v:'air',l:'✈ Aéreo'}]},
+  status:{label:'Status',opts:[{v:'late',l:'⚠ Atrasado'},{v:'urgent',l:'🔔 Urgente'},{v:'ok',l:'✓ Previsto'},{v:'done',l:'✅ Concluído'}]},
+};
+let expSel={country:new Set(['BR','MX','CL','CO','AR','PE']),classification:new Set(['Full','Metro Std','Metro Intra','Darkstore']),transport:new Set(['car','air']),status:new Set(['late','urgent','ok','done','tbd'])};
+let edSel={text:'',region:'',classification:[],statusList:[]};
+let execFilter='all';
+function setExecFilter(val,btn){
+  execFilter=val;
+  document.querySelectorAll('#exec-filter-bar button').forEach(function(b){b.classList.remove('ed-fchip-on');});
+  btn.classList.add('ed-fchip-on');
+  document.getElementById('exec-grid').innerHTML='';
+  buildExecSummary();
+}
+function getFilteredEditorSites(){
+  return SITES.filter(function(s){
+    if(edSel.text){var t=edSel.text.toLowerCase();if(!s.code.toLowerCase().includes(t)&&!(s.city||'').toLowerCase().includes(t))return false;}
+    if(edSel.region&&getRegion(s.country)!==edSel.region)return false;
+    if(edSel.classification.length&&!edSel.classification.includes(s.classification))return false;
+    if(edSel.statusList.length&&!edSel.statusList.includes(siteStatus(s)))return false;
+    return true;
+  });
+}
+function jumpToExplorer(val,type){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('tab-explorer').classList.add('active');
+  document.querySelectorAll('.tab').forEach(function(b){if(b.textContent.includes('Explorer'))b.classList.add('active');});
+  expSel.country=new Set(['BR','MX','CL','CO','AR','PE','UY','US']);
+  expSel.classification=new Set(['Full','Metro Std','Metro Intra','Darkstore']);
+  expSel.transport=new Set(['car','air']);
+  expSel.status=new Set(['late','urgent','ok','done','tbd']);
+  // type is auto-detected by value
+  var statuses=['late','urgent','ok','done','tbd'];
+  var countries=['BR','MX','CL','CO','AR','PE','UY','US'];
+  var classes=['Full','Metro Std','Metro Intra','Darkstore'];
+  if(statuses.includes(val))expSel.status=new Set([val]);
+  else if(countries.includes(val))expSel.country=new Set([val]);
+  else if(classes.includes(val))expSel.classification=new Set([val]);
+  buildExplorerFilters();
+  renderExplorer();
+}
+let expView='table';
+
+function buildExplorerFilters(){
+  const c=document.getElementById('exp-filters');
+  c.innerHTML='';
+  Object.entries(EXP_FILTERS).forEach(([key,cfg])=>{
+    const g=document.createElement('div');
+    g.className='exp-group';
+    g.innerHTML=`<div class="exp-group-title">${cfg.label}</div>`;
+    const selAll=document.createElement('label');
+    selAll.className='exp-cb-label';
+    const cbAll=document.createElement('input');
+    cbAll.type='checkbox'; cbAll.checked=true; cbAll.dataset.key=key; cbAll.dataset.val='__ALL__';
+    cbAll.onchange=()=>toggleExpAll(key,cbAll.checked);
+    selAll.appendChild(cbAll);
+    selAll.appendChild(document.createTextNode(' Todos'));
+    g.appendChild(selAll);
+    cfg.opts.forEach(opt=>{
+      const lbl=document.createElement('label');
+      lbl.className='exp-cb-label';
+      const cb=document.createElement('input');
+      cb.type='checkbox'; cb.checked=true; cb.dataset.key=key; cb.dataset.val=opt.v;
+      cb.onchange=()=>toggleExp(key,opt.v,cb.checked);
+      lbl.appendChild(cb);
+      lbl.appendChild(document.createTextNode(' '+opt.l));
+      g.appendChild(lbl);
+    });
+    c.appendChild(g);
+  });
+}
+
+function toggleExpAll(key,checked){
+  const opts=EXP_FILTERS[key].opts.map(o=>o.v);
+  if(checked)expSel[key]=new Set(opts);
+  else expSel[key]=new Set();
+  document.querySelectorAll(`[data-key="${key}"]`).forEach(cb=>{if(cb.dataset.val!=='__ALL__')cb.checked=checked;});
+  renderExplorer();
+}
+function toggleExp(key,val,checked){
+  if(checked)expSel[key].add(val);
+  else expSel[key].delete(val);
+  const allChecked=EXP_FILTERS[key].opts.every(o=>expSel[key].has(o.v));
+  document.querySelector(`[data-key="${key}"][data-val="__ALL__"]`).checked=allChecked;
+  renderExplorer();
+}
+function setExpView(v,btn){
+  expView=v;
+  document.querySelectorAll('.exp-view-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderExplorer();
+}
+
+function getFilteredSites(){
+  return SITES.filter(s=>{
+    const st=siteStatus(s);
+    return expSel.country.has(s.country)&&
+      expSel.classification.has(s.classification)&&
+      expSel.transport.has(s.transport)&&
+      (expSel.status.has(st)||expSel.status.has('tbd'));
+  });
+}
+
+function renderExplorer(){
+  const filtered=getFilteredSites();
+  document.getElementById('exp-count').textContent=filtered.length+' sites';
+  const c=document.getElementById('exp-results');
+  
+  if(expView==='table'){
+    let rows=filtered.map(s=>{
+      const st=siteStatus(s);
+      const stColors={'late':'#C62828','urgent':'#E65100','ok':'#1B5E20','done':'#546E7A','tbd':'#888'};
+      const stLabels={'late':'⚠ Atrasado','urgent':'🔔 Urgente','ok':'✓ Previsto','done':'✅ Concluído','tbd':'? TBD'};
+      const nextEv=s.events.find(e=>e.type!=='golive')||s.events[0];
+      const nextDate=nextEv?new Date(nextEv.start).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'}):'—';
+      return`<tr>
+        <td>${s.flag} <strong>${s.code}</strong></td>
+        <td>${s.city}${s.state?', '+s.state:''}</td>
+        <td>${s.classification}</td>
+        <td><span class="b ${{'Full':'b-full','Metro Std':'b-mstd','Metro Intra':'b-mintra','Darkstore':'b-ds'}[s.classification]||''}">${s.classification}</span></td>
+        <td>${s.transport==='car'?'🚗':'✈'} ${s.transportNote}</td>
+        <td>${s.auditors}</td>
+        <td style="color:${stColors[st]};font-weight:700">${stLabels[st]||st}</td>
+        <td>${nextDate}</td>
+      </tr>`;
+    }).join('');
+    c.innerHTML=`<table class="exp-table"><thead><tr>
+      <th>Código</th><th>Cidade/Estado</th><th>Classificação</th><th>Tipo</th>
+      <th>Deslocamento</th><th>Auditores</th><th>Status</th><th>Próx. Data</th>
+    </tr></thead><tbody>${rows||'<tr><td colspan="8" style="color:#aaa;padding:16px">Nenhum resultado.</td></tr>'}</tbody></table>`;
+  } else if(expView==='cards'){
+    const cards=filtered.map(s=>{
+      const st=siteStatus(s);
+      const bc={'late':'#C62828','urgent':'#E65100','ok':'#34A853','done':'#78909C','tbd':'#888'}[st];
+      return`<div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;border-top:3px solid ${bc}">
+        <div style="font-weight:800;font-size:13px">${s.flag} ${s.code}</div>
+        <div style="font-size:11px;color:#888;margin:2px 0">${s.city}${s.state?', '+s.state:''}</div>
+        <div style="display:flex;gap:4px;margin:6px 0;flex-wrap:wrap">
+          <span class="b ${{'Full':'b-full','Metro Std':'b-mstd','Metro Intra':'b-mintra','Darkstore':'b-ds'}[s.classification]||''}">${s.classification}</span>
+          <span class="b ${s.transport==='car'?'b-car':'b-air'}">${s.transport==='car'?'🚗':'✈'}</span>
+        </div>
+        <div style="font-size:10px;color:#555">${s.auditors}</div>
+        <div style="font-size:10px;color:${bc};font-weight:700;margin-top:4px">
+          ${'late'===st?'⚠ Atrasado':'urgent'===st?'🔔 Urgente':'ok'===st?'✓ Previsto':'done'===st?'✅ Concluído':'TBD'}
+        </div>
+      </div>`;
+    }).join('');
+    c.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;padding:14px">${cards||'<p style="color:#aaa;padding:16px">Nenhum resultado.</p>'}</div>`;
+  } else { // mini-gantt
+    const rows=filtered.map(s=>{
+      let bars='';
+      s.events.forEach(ev=>{
+        const sd=doff(ev.start);
+        if(sd<0||sd>TOTAL_DAYS)return;
+        const ed=ev.end?doff(ev.end):sd;
+        const dur=Math.max(ed-sd+1,1);
+        const isPoint=ev.type==='golive'||dur<=1;
+        const cls=BAR_CLS[ev.type]||'bar-metro-ok';
+        if(isPoint){
+          const cx=((sd+0.5)/TOTAL_DAYS*100).toFixed(3);
+          bars+=`<div class="bar ${cls}" style="left:calc(${cx}% - 5px)"></div>`;
+        } else {
+          const {left:lp,w:wp}=pct(ev.start,dur);
+          bars+=`<div class="bar ${cls}" style="left:${lp};width:${wp};font-size:7px">${dur>4?ev.label:''}</div>`;
+        }
+      });
+      return`<div class="g-row" style="background:#fff">
+        <div class="g-info" style="min-width:240px;width:240px">
+
+          <div><div class="g-code" style="font-size:11px">${s.code}</div>
+          <div class="g-city">${s.city.substring(0,16)}</div></div>
+          <span style="margin-left:auto;font-size:12px">${s.transport==='car'?'🚗':'✈'}</span>
+        </div>
+        <div class="g-tl">${bars}</div>
+      </div>`;
+    }).join('');
+    const mHdr=MONTHS.map(m=>`<div style="flex:0 0 ${(m.days/TOTAL_DAYS*100).toFixed(1)}%;text-align:center;font-size:9px;font-weight:700;color:#888;border-right:1px solid #eee;padding:5px 0">${m.label}</div>`).join('');
+    c.innerHTML=`<div style="overflow-y:auto;max-height:400px">
+      <div style="display:flex;background:#f8f9fa;border-bottom:2px solid #e5e7eb">
+        <div style="min-width:240px;width:240px;padding:5px 10px;font-size:10px;font-weight:700;color:#666;border-right:2px solid #e5e7eb">FC / Site</div>
+        <div style="flex:1;display:flex">${mHdr}</div>
+      </div>
+      ${rows||'<p style="color:#aaa;padding:16px;text-align:center">Nenhum resultado.</p>'}
+    </div>`;
+  }
+}
+
+// ================================================================
+// EXECUTIVE SUMMARY
+// ================================================================
+function buildExecSummary(){
+  const c=document.getElementById('exec-grid');
+  if(!c)return;
+
+  // ── filter bar ─────────────────────────────────────────────────
+  var fb=document.getElementById('exec-filter-bar');
+  if(fb&&!fb.children.length){
+    fb.innerHTML='';
+    var fLabel=document.createElement('span');
+    fLabel.textContent=L('f_exec_region');
+    fLabel.style.cssText='font-size:10px;font-weight:700;color:#888';
+    fb.appendChild(fLabel);
+    function mkEFChip(lbl,val){
+      var b=document.createElement('button');
+      b.className='ed-fchip'+(execFilter===val?' ed-fchip-on':'');
+      b.textContent=lbl;
+      b.onclick=function(){setExecFilter(val,b);};
+      fb.appendChild(b);
+    }
+    mkEFChip(L('f_all'),'all');
+    mkEFChip('🌎 North','north');
+    mkEFChip('🌎 South','south');
+  }
+
+  // ── filtered site set ──────────────────────────────────────────
+  var ES=execFilter==='north'?SITES.filter(function(s){return REGIONS.North.countries.includes(s.country);}):
+         execFilter==='south'?SITES.filter(function(s){return REGIONS.South.countries.includes(s.country);}):
+         SITES;
+
+  // ── helpers ──────────────────────────────────────────────────────
+  const CLS=['Full','Metro Std','Metro Intra','Darkstore'];
+  const CLC={'Full':'#34A853','Metro Std':'#E65100','Metro Intra':'#4285F4','Darkstore':'#9C27B0'};
+  const CLS_SHORT={'Full':'Full','Metro Std':'Std','Metro Intra':'Intra','Darkstore':'Dark'};
+
+  function clBadge(cl,n){
+    if(!n)return '';
+    return '<span style="padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;background:'+CLC[cl]+'22;color:'+CLC[cl]+';margin-right:3px">'+CLS_SHORT[cl]+' '+n+'</span>';
+  }
+  function clBreakdown(sites){
+    return CLS.map(function(cl){return clBadge(cl,sites.filter(function(s){return s.classification===cl;}).length);}).join('');
+  }
+
+  // ── Card 1: Status × Tipo ──────────────────────────────────────────
+  var statuses=[
+    {k:'late', l:'⚠️ Atrasado', color:'#C62828'},
+    {k:'urgent',l:'🔔 Urgente',  color:'#E65100'},
+    {k:'ok',   l:'⏱ Previsto',          color:'#1565C0'},
+    {k:'done', l:'✅ Concluído',  color:'#2E7D32'},
+  ];
+  var byStatus={late:[],urgent:[],ok:[],done:[]};
+  ES.forEach(function(s){var st=siteStatus(s);if(byStatus[st])byStatus[st].push(s);});
+  var maxSt=Math.max.apply(null,statuses.map(function(d){return byStatus[d.k].length;}),1)||1;
+  var barRows=statuses.map(function(d){
+    var n=byStatus[d.k].length;
+    var bar='<div class="bc-row" style="flex-wrap:wrap;cursor:pointer" '
+      +'onclick="jumpToExplorer(\'' + d.k + '\')" '
+      +'title="Ver no Explorer →">'
+      +'<div class="bc-label">'+d.l+'</div>'
+      +'<div class="bc-bar-wrap"><div class="bc-bar-inner" style="width:'+(n/maxSt*100).toFixed(1)+'%;background:'+d.color+'">'+(n||'')+'</div></div>'
+      +'<div class="bc-val">'+n+'</div>'
+      +'<div style="width:100%;padding:2px 0 4px 100px;font-size:10px">'+clBreakdown(byStatus[d.k])+'</div>'
+      +'</div>';
+    return bar;
+  }).join('');
+
+  // ── Card 2: Sites por País × Tipo ─────────────────────────────────
+  var countries=[
+    {cc:'BR',l:'Brasil'},
+    {cc:'MX',l:'México'},
+    {cc:'CO',l:'Colômbia'},
+    {cc:'CL',l:'Chile'},
+    {cc:'AR',l:'Argentina'},
+    {cc:'PE',l:'Peru'},
+    {cc:'UY',l:'Uruguai'},
+    {cc:'US',l:'USA'},
+  ];
+  var maxCC=Math.max.apply(null,countries.map(function(c){return ES.filter(function(s){return s.country===c.cc;}).length;}))||1;
+  var cRows=countries.map(function(co){
+    var ss=ES.filter(function(s){return s.country===co.cc;});
+    if(!ss.length)return '';
+    return '<div class="bc-row" style="flex-wrap:wrap;cursor:pointer" '
+      +'onclick="jumpToExplorer(\'' + co.cc + '\')" '
+      +'title="Ver no Explorer →">'
+      +'<div class="bc-label"><img src="https://flagcdn.com/16x12/'+co.cc.toLowerCase()+'.png" alt="'+co.cc+'" style="vertical-align:middle;margin-right:4px">'+co.l+'</div>'
+      +'<div class="bc-bar-wrap"><div class="bc-bar-inner" style="width:'+(ss.length/maxCC*100).toFixed(1)+'%;background:#4285F4">'+ss.length+'</div></div>'
+      +'<div class="bc-val">'+ss.length+'</div>'
+      +'<div style="width:100%;padding:2px 0 4px 100px;font-size:10px">'+clBreakdown(ss)+'</div>'
+      +'</div>';
+  }).join('');
+
+  // ── Card 3: Auditorias por Mês (Full vs Metro) ────────────────────
+  var monthData=MONTHS.map(function(m){
+    var d=new Date(m.y,m.m,1), de=new Date(m.y,m.m+1,0);
+    function inMonth(ev){return ev.type!=='golive'&&ev.type!=='done'&&new Date(ev.start)>=d&&new Date(ev.start)<=de;}
+    var nF=ES.filter(function(s){return s.classification==='Full';}).reduce(function(a,s){return a+s.events.filter(inMonth).length;},0);
+    var nM=ES.filter(function(s){return s.classification!=='Full';}).reduce(function(a,s){return a+s.events.filter(inMonth).length;},0);
+    return{label:m.label,nF:nF,nM:nM,tot:nF+nM};
+  });
+  var maxMC=Math.max.apply(null,monthData.map(function(d){return d.tot;}))||1;
+  var mRows=monthData.map(function(d){
+    var wF=(d.nF/maxMC*100).toFixed(1), wM=(d.nM/maxMC*100).toFixed(1);
+    return '<div class="bc-row">'
+      +'<div class="bc-label" style="width:56px;font-size:10px">'+d.label+'</div>'
+      +'<div class="bc-bar-wrap" style="display:flex;gap:1px">'
+      +(d.nF?'<div style="height:100%;width:'+wF+'%;background:#34A853;border-radius:3px 0 0 3px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700">'+d.nF+'</div>':'')
+      +(d.nM?'<div style="height:100%;width:'+wM+'%;background:#4285F4;border-radius:'+(d.nF?'0':'3px')+' 3px 3px '+(d.nF?'0':'3px')+';display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff">'+d.nM+'</div>':'')
+      +'</div>'
+      +'<div class="bc-val">'+d.tot+'</div>'
+      +'</div>';
+  }).join('');
+  var mLegend='<div style="display:flex;gap:12px;margin-top:8px;font-size:10px">'
+    +'<span><span style="display:inline-block;width:10px;height:10px;background:#34A853;border-radius:2px;margin-right:3px;vertical-align:middle"></span>Full</span>'
+    +'<span><span style="display:inline-block;width:10px;height:10px;background:#4285F4;border-radius:2px;margin-right:3px;vertical-align:middle"></span>Metro</span>'
+    +'</div>';
+
+  // ── Card 4: Deslocamento × Cobertura ─────────────────────────────
+  var nCar=ES.filter(function(s){return s.transport==='car';}).length;
+  var nAir=ES.filter(function(s){return s.transport==='air';}).length;
+  var total=ES.length||1;
+  var carPct=Math.round(nCar/total*100);
+  var airPct=100-carPct;
+  // stacked bar
+  var c4Bar='<div style="height:22px;border-radius:11px;overflow:hidden;display:flex;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.1)">'
+    +(nCar?'<div style="width:'+carPct+'%;background:#34A853;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700;gap:3px">🚗 '+carPct+'%</div>':'')
+    +(nAir?'<div style="width:'+airPct+'%;background:#1565C0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700;gap:3px">✈ '+airPct+'%</div>':'')
+    +'</div>';
+  // by region
+  var c4Regions=Object.entries(REGIONS).map(function(entry){
+    var rkk=entry[0],rvv=entry[1];
+    var rss=ES.filter(function(s){return rvv.countries.includes(s.country);});
+    if(!rss.length)return '';
+    var rc=rss.filter(function(s){return s.transport==='car';}).length;
+    var ra=rss.filter(function(s){return s.transport==='air';}).length;
+    var rt=rss.length||1;
+    return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:10px">'
+      +'<span style="width:56px;font-weight:700;color:'+rvv.color+'">'+rvv.label.split(' ')[0]+'</span>'
+      +'<div style="flex:1;height:12px;border-radius:6px;overflow:hidden;display:flex">'
+      +(rc?'<div style="width:'+(rc/rt*100).toFixed(0)+'%;background:#34A853"></div>':'')
+      +(ra?'<div style="width:'+(ra/rt*100).toFixed(0)+'%;background:#1565C0"></div>':'')
+      +'</div>'
+      +'<span style="font-size:9px;color:#666;min-width:60px">🚗 '+rc+'  ✈ '+ra+'</span>'
+      +'</div>';
+  }).join('');
+  // by type
+  var c4Types=CLS.map(function(cl){
+    var ss=ES.filter(function(s){return s.classification===cl;});
+    if(!ss.length)return '';
+    var nc=ss.filter(function(s){return s.transport==='car';}).length;
+    var na=ss.length-nc;
+    var tt=ss.length||1;
+    return '<div style="display:flex;align-items:center;gap:6px;font-size:10px;margin:3px 0">'
+      +'<span style="width:72px;font-weight:700;color:'+CLC[cl]+'">'+CLS_SHORT[cl]+'</span>'
+      +'<div style="flex:1;height:10px;border-radius:5px;overflow:hidden;display:flex">'
+      +(nc?'<div style="width:'+(nc/tt*100).toFixed(0)+'%;background:#34A853"></div>':'')
+      +(na?'<div style="width:'+(na/tt*100).toFixed(0)+'%;background:#1565C0"></div>':'')
+      +'</div>'
+      +'<span style="font-size:9px;color:#666;min-width:50px">🚗 '+nc+'  ✈ '+na+'</span>'
+      +'</div>';
+  }).join('');
+  // top auditors with most air travel
+  var audNames=['Humberto','Felipe','Gisele','Rita','Arlet','Remmy','Denise','Alejandro'];
+  var c4AudAir=audNames.map(function(name){
+    return {name:name,air:ES.filter(function(s){return s.transport==='air'&&(s.auditors||'').includes(name);}).length};
+  }).filter(function(a){return a.air>0;}).sort(function(a,b){return b.air-a.air;});
+  var c4Insight='';
+  if(c4AudAir.length){
+    c4Insight='<div style="margin-top:10px;padding:8px 10px;background:#E3F2FD;border-radius:6px;border-left:3px solid #1565C0;font-size:10px">'
+      +'<strong>'+L('insight_air')+'</strong><br>'
+      +c4AudAir.slice(0,4).map(function(a){return '<span style="display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;background:#fff;border-radius:10px;border:1px solid #1565C0;color:#1565C0;font-weight:700">'+a.name+' ✈ '+a.air+'</span>';}).join('')
+      +'</div>';
+  }
+  var nFull=ES.filter(function(s){return s.classification==='Full';}).length;
+  var nMetro=ES.filter(function(s){return s.classification!=='Full';}).length;
+  var fullAudDays=ES.filter(function(s){return s.classification==='Full';}).reduce(function(a,s){
+    var d=s.events.filter(function(e){return e.type==='full-ar';}).reduce(function(b,e){
+      if(!e.end)return b+1;
+      return b+Math.max(Math.round((new Date(e.end)-new Date(e.start))/86400000)+1,1);
+    },0);
+    return a+(d*(s.auditorCount||3));
+  },0);
+  var c4Days='<div style="margin-top:10px;padding:8px 10px;background:#F1F8E9;border-radius:6px;border-left:3px solid #34A853;font-size:10px">'
+    +'<strong>'+L('insight_days')+'</strong><br>'
+    +'Full: '+nFull+' sites → '+fullAudDays+' aud-dias &nbsp;|&nbsp; Metro: '+nMetro+' sites → '+nMetro+' aud-dias<br>'
+    +'<strong>Total: '+(fullAudDays+nMetro)+' auditor-dias no período</strong>'
+    +'</div>';
+  var card4html=c4Bar
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">'
+    +'<div><div style="font-size:9px;font-weight:700;color:#888;margin-bottom:4px;text-transform:uppercase">Por Região</div>'+c4Regions+'</div>'
+    +'<div><div style="font-size:9px;font-weight:700;color:#888;margin-bottom:4px;text-transform:uppercase">Por Tipo</div>'+c4Types+'</div>'
+    +'</div>'
+    +c4Days+c4Insight;
+
+  // ── Card 5: Carga por Auditor ──────────────────────────────────────
+  var team=[
+    {name:'Humberto',color:'#4285F4'},
+    {name:'Felipe',  color:'#34A853'},
+    {name:'Gisele',  color:'#FBBC04'},
+    {name:'Rita',    color:'#EA4335'},
+  ];
+  var teamRows=team.map(function(t){
+    var full=ES.filter(function(s){return s.classification==='Full'&&s.auditors.includes(t.name);}).length;
+    var mstd=ES.filter(function(s){return s.classification==='Metro Std'&&s.auditors.includes(t.name);}).length;
+    var mintra=ES.filter(function(s){return s.classification==='Metro Intra'&&s.auditors.includes(t.name);}).length;
+    var dark=ES.filter(function(s){return s.classification==='Darkstore'&&s.auditors.includes(t.name);}).length;
+    var tot=full+mstd+mintra+dark;
+    if(!tot)return '';
+    var badges=clBadge('Full',full||0)+clBadge('Metro Std',mstd||0)+clBadge('Metro Intra',mintra||0)+clBadge('Darkstore',dark||0);
+    return '<div class="bc-row" style="flex-wrap:wrap;cursor:pointer">'
+      +'<div class="bc-label">'+t.name+'</div>'
+      +'<div class="bc-bar-wrap"><div class="bc-bar-inner" style="width:'+(tot/(team.length||1)*80).toFixed(0)+'%;background:'+t.color+'">'+tot+'</div></div>'
+      +'<div class="bc-val">'+tot+'</div>'
+      +'<div style="width:100%;padding:2px 0 4px 100px;font-size:10px">'+badges+'</div>'
+      +'</div>';
+  }).join('');
+
+  // ── Card 6: Progresso por Tipo – Tabela Visual ───────────────────
+  var clIcons={'Full':'🏭','Metro Std':'📦','Metro Intra':'🔄','Darkstore':'🏪'};
+  var c6Header='<div style="display:grid;grid-template-columns:1fr 36px 36px 36px 36px 36px;gap:0;padding:5px 10px;background:#F5F5F5;border-radius:8px 8px 0 0;border:1px solid #E0E0E0;font-size:9px;font-weight:800;color:#888;text-align:center;text-transform:uppercase">'
+    +'<div style="text-align:left">Tipo</div>'
+    +'<div title="Total">Tot</div>'
+    +'<div style="color:#2E7D32" title="Concluído">✅</div>'
+    +'<div style="color:#C62828" title="Atrasado">⚠</div>'
+    +'<div style="color:#E65100" title="Urgente">🔔</div>'
+    +'<div style="color:#1565C0" title="Previsto">⏱</div>'
+    +'</div>';
+  var c6Rows=CLS.map(function(cl,ci){
+    var ss=ES.filter(function(s){return s.classification===cl;});
+    if(!ss.length)return '';
+    var tot=ss.length;
+    var done=ss.filter(function(s){return siteStatus(s)==='done';}).length;
+    var late=ss.filter(function(s){return siteStatus(s)==='late';}).length;
+    var urg=ss.filter(function(s){return siteStatus(s)==='urgent';}).length;
+    var ok=ss.filter(function(s){return siteStatus(s)==='ok';}).length;
+    var pct=Math.round(done/tot*100);
+    var dP=(done/tot*100).toFixed(1),lP=(late/tot*100).toFixed(1),uP=(urg/tot*100).toFixed(1),oP=(ok/tot*100).toFixed(1);
+    var bar='<div style="height:5px;display:flex;margin-top:4px;border-radius:3px;overflow:hidden;background:#eee">'
+      +(done?'<div style="width:'+dP+'%;background:#2E7D32"></div>':'')
+      +(late?'<div style="width:'+lP+'%;background:#C62828"></div>':'')
+      +(urg?'<div style="width:'+uP+'%;background:#E65100"></div>':'')
+      +(ok?'<div style="width:'+oP+'%;background:#1565C0"></div>':'')
+      +'</div>';
+    var pctColor=pct>=75?'#2E7D32':pct>=40?'#E65100':'#C62828';
+    var nameCell='<div style="display:flex;flex-direction:column;justify-content:center">'
+      +'<span style="font-size:11px;font-weight:800;color:'+CLC[cl]+'">'+clIcons[cl]+' '+cl+'</span>'
+      +'<span style="font-size:9px;color:'+pctColor+';font-weight:700;margin-top:1px">'+pct+'% concluído</span>'
+      +bar
+      +'</div>';
+    var cs='display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;';
+    return '<div style="display:grid;grid-template-columns:1fr 36px 36px 36px 36px 36px;gap:0;padding:9px 10px;background:#fff;border:1px solid #E0E0E0;border-top:none">'
+      +nameCell
+      +'<div style="'+cs+'color:#555">'+tot+'</div>'
+      +'<div style="'+cs+'color:#2E7D32">'+(done||'—')+'</div>'
+      +'<div style="'+cs+'color:#C62828">'+(late||'—')+'</div>'
+      +'<div style="'+cs+'color:#E65100">'+(urg||'—')+'</div>'
+      +'<div style="'+cs+'color:#1565C0">'+(ok||'—')+'</div>'
+      +'</div>';
+  }).join('');
+  var card6html=c6Header+c6Rows+'<div style="padding:5px 10px;background:#FAFAFA;border:1px solid #E0E0E0;border-top:none;border-radius:0 0 8px 8px;font-size:9px;color:#aaa;display:flex;gap:12px">'
+    +'<span><span style="color:#2E7D32;font-weight:700">✅</span> Concluído</span>'
+    +'<span><span style="color:#C62828;font-weight:700">⚠</span> Atrasado</span>'
+    +'<span><span style="color:#E65100;font-weight:700">🔔</span> Urgente</span>'
+    +'<span><span style="color:#1565C0;font-weight:700">⏱</span> Previsto</span>'
+    +'</div>';
+  // ── Render ─────────────────────────────────────────────────────────
+  c.innerHTML=`
+    <div class="exec-card">
+      <div class="exec-card-title">${L('exec1')}</div>
+      <div class="bar-chart-h">${barRows}</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-title">${L('exec2')}</div>
+      <div class="bar-chart-h">${cRows}</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-title">${L('exec3')}</div>
+      <div class="bar-chart-h">${mRows}</div>
+      ${mLegend}
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-title">${L('exec4')}</div>
+      <div style="padding:4px 0">${card4html}</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-title">${L('exec5')}</div>
+      <div class="bar-chart-h">${teamRows}</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-title">${L('exec6')}</div>
+      <div style="padding:4px 0">${card6html}</div>
+    </div>`;
+}
+
+// ================================================================
+// DATA EDITOR
+// ================================================================
+const ED_COLS=[
+  {key:'code',           label:'FC',           type:'text',        width:'74px',  align:'center'},
+  {key:'country',        label:'País',             type:'select',      opts:['BR','MX','CL','CO','AR','PE','UY','US'], width:'60px', align:'center'},
+  {key:'city',           label:'Cidade',           type:'text',        width:'110px', align:'left'},
+  {key:'state',          label:'UF',               type:'text',        width:'42px',  align:'center'},
+  {key:'classification', label:'Tipo',             type:'select',      opts:['Full','Metro Std','Metro Intra','Darkstore'], width:'95px', align:'center'},
+  {key:'golive',         label:'Go-Live',          type:'date',        width:'98px',  align:'center'},
+  {key:'siteLeader',     label:'Site Leader',      type:'text',        width:'140px', align:'left'},
+  {key:'processing',     label:'Tipo Processam.',  type:'text',        width:'106px', align:'center'},
+  {key:'auditType',      label:'Auditoria',        type:'multiselect',
+   opts:['Auditoria Regional','Assessment Operativo','Self Assessment'],
+   width:'140px', align:'left'},
+  {key:'auditors',       label:'Auditores',        type:'multiselect',
+   opts:['Humberto','Felipe','Gisele','Rita','Arlet','Remmy','Denise','Alejandro'],
+   width:'158px', align:'left'},
+  {key:'auditDate',      label:'Data Prevista',    type:'date',        width:'98px',  align:'center'},
+  {key:'statusOverride', label:'Status',           type:'select',      opts:['','Concluído','Em Andamento','Atrasado','Planejado'], width:'106px', align:'center'},
+  {key:'transport',      label:'Deslocamento',     type:'select',      opts:['car','air'], width:'90px', align:'center'},
+  {key:'transportNote',  label:'Nota',             type:'text',        width:'108px', align:'left'},
+];
+
+function buildEditor(){
+  // Build filter bar
+  const filterBar=document.getElementById('ed-filter-bar');
+  if(filterBar&&!filterBar.children.length){
+    filterBar.innerHTML='';
+    var fbSearch=document.createElement('input');
+    fbSearch.type='text'; fbSearch.id='ed-search';
+    fbSearch.placeholder='🔍 Buscar código ou cidade...';
+    fbSearch.style.cssText='padding:5px 10px;border:1px solid #e0e0e0;border-radius:20px;font-size:11px;width:190px;outline:none';
+    fbSearch.oninput=function(){edSel.text=this.value;renderEditorRows();};
+    filterBar.appendChild(fbSearch);
+    function mkLabel(t){var s=document.createElement('span');s.textContent=t;s.style.cssText='font-size:10px;font-weight:700;color:#888;margin-left:8px';filterBar.appendChild(s);}
+    function mkChip(label,onFn,extraStyle,startOn){
+      var b=document.createElement('button');
+      b.className='ed-fchip'+(startOn?' ed-fchip-on':'');
+      b.textContent=label;
+      if(extraStyle)b.style.cssText=extraStyle;
+      b.onclick=function(){onFn(b);};
+      filterBar.appendChild(b);
+      return b;
+    }
+    mkLabel('REGIÃO:');
+    var btnAll=mkChip(L('f_all'),function(b){edSetRegion('',b);},'',true);
+    mkChip('🌎 North',function(b){edSetRegion('North',b);},'color:#BF360C;border-color:#E65100');
+    mkChip('🌎 South',function(b){edSetRegion('South',b);},'color:#1B5E20;border-color:#1565C0');
+    mkLabel(L('f_type'));
+    mkChip('Full',function(b){edToggleCls('Full',b);},'color:#34A853;border-color:#34A853');
+    mkChip('Metro Std',function(b){edToggleCls('Metro Std',b);},'color:#E65100;border-color:#E65100');
+    mkChip('Metro Intra',function(b){edToggleCls('Metro Intra',b);},'color:#4285F4;border-color:#4285F4');
+    mkChip('Darkstore',function(b){edToggleCls('Darkstore',b);},'color:#9C27B0;border-color:#9C27B0');
+    mkLabel(L('f_status'));
+    mkChip(L('f_done'),function(b){edToggleSt('done',b);},'color:#546E7A;border-color:#546E7A');
+    mkChip(L('f_late'),function(b){edToggleSt('late',b);},'color:#C62828;border-color:#C62828');
+    mkChip(L('f_urgent'),function(b){edToggleSt('urgent',b);},'color:#E65100;border-color:#E65100');
+    mkChip(L('f_ok'),function(b){edToggleSt('ok',b);},'color:#1B5E20;border-color:#1565C0');
+  }
+  // Build colgroup for strict fixed widths
+  const tbl=document.querySelector('.editor-table');
+  let cg=tbl.querySelector('colgroup');
+  if(!cg){cg=document.createElement('colgroup');tbl.insertBefore(cg,tbl.firstChild);}
+  cg.innerHTML='';
+  ED_COLS.forEach(col=>{
+    const c=document.createElement('col');
+    if(col.width)c.style.width=col.width;
+    cg.appendChild(c);
+  });
+  const cDel=document.createElement('col');cDel.style.width='32px';cg.appendChild(cDel);
+  // Build thead
+  const thead=document.getElementById('ed-thead');
+  thead.innerHTML='';
+  ED_COLS.forEach(col=>{
+    const th=document.createElement('th');
+    th.textContent=L('col_'+col.key)||col.label;
+    if(col.align)th.style.textAlign=col.align;
+    thead.appendChild(th);
+  });
+  const del=document.createElement('th');del.textContent='';thead.appendChild(del);
+  renderEditorRows();
+}
+function edSetRegion(r,btn){
+  edSel.region=r;
+  document.querySelectorAll('#ed-filter-bar .ed-fchip').forEach(function(b){
+    if(b.textContent.includes('North')||b.textContent.includes('South')||b.textContent==='Todas')
+      b.classList.remove('ed-fchip-on');
+  });
+  btn.classList.add('ed-fchip-on');
+  renderEditorRows();
+}
+function edToggleCls(cl,btn){
+  var i=edSel.classification.indexOf(cl);
+  if(i>=0){edSel.classification.splice(i,1);btn.classList.remove('ed-fchip-on');}
+  else{edSel.classification.push(cl);btn.classList.add('ed-fchip-on');}
+  renderEditorRows();
+}
+function edToggleSt(st,btn){
+  var i=edSel.statusList.indexOf(st);
+  if(i>=0){edSel.statusList.splice(i,1);btn.classList.remove('ed-fchip-on');}
+  else{edSel.statusList.push(st);btn.classList.add('ed-fchip-on');}
+  renderEditorRows();
+}
+
+function renderEditorRows(){
+  const tbody=document.getElementById('ed-tbody');
+  tbody.innerHTML='';
+  let lastRegion='';
+  const edVisible=getFilteredEditorSites();
+  const totalCount=document.getElementById('ed-count');
+  if(totalCount)totalCount.textContent=edVisible.length+'/'+SITES.length+' sites';
+  edVisible.forEach((s,idx)=>{
+    const realIdx=SITES.indexOf(s);
+    const rk=getRegion(s.country);
+    if(rk!==lastRegion){
+      lastRegion=rk;
+      const rv=REGIONS[rk];
+      const trSep=document.createElement('tr');
+      trSep.className='ed-region-row ed-region-'+rk.toLowerCase();
+      const tdSep=document.createElement('td');
+      tdSep.colSpan=ED_COLS.length+1;
+      tdSep.innerHTML=rv.emoji+' '+rv.label;
+      trSep.appendChild(tdSep);
+      tbody.appendChild(trSep);
+    }
+    const tr=document.createElement('tr');
+    tr.className='ed-row-'+rk.toLowerCase();
+    ED_COLS.forEach(col=>{
+      const td=document.createElement('td');
+      if(col.align){td.style.textAlign=col.align;}
+      if(col.type==='multiselect'){
+        var msWrap=document.createElement('div');
+        msWrap.style.cssText='cursor:pointer;padding:2px 6px;border:1px solid #e0e0e0;border-radius:4px;font-size:11px;min-height:22px;background:#fff;white-space:normal;line-height:1.4;box-sizing:border-box;width:100%';
+        var msVals=(s[col.key]||'').split(' | ').filter(Boolean);
+        function msRefresh(w,vals){w.textContent=vals.length?vals.join(' · '):'— selecionar —';w.style.color=vals.length?'#333':'#bbb';}
+        msRefresh(msWrap,msVals);
+        (function(wrap,vals,ri,ck){
+          wrap.onclick=function(e){
+            e.stopPropagation();
+            document.querySelectorAll('.ms-dd').forEach(function(d){d.remove();});
+            var dd=document.createElement('div');
+            dd.className='ms-dd';
+            dd.style.cssText='position:fixed;background:#fff;border:1px solid #ccc;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:8px 4px;z-index:9999;min-width:170px';
+            var rect=wrap.getBoundingClientRect();
+            dd.style.top=(rect.bottom+4)+'px';
+            dd.style.left=rect.left+'px';
+            col.opts.forEach(function(name){
+              var lbl=document.createElement('label');
+              lbl.style.cssText='display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer;border-radius:4px;font-size:11px;font-weight:500';
+              lbl.onmouseover=function(){lbl.style.background='#EAF2FF';};
+              lbl.onmouseout=function(){lbl.style.background='';};
+              var cb=document.createElement('input');
+              cb.type='checkbox';cb.checked=vals.includes(name);
+              cb.onchange=function(){
+                if(cb.checked){if(!vals.includes(name))vals.push(name);}
+                else{vals.splice(vals.indexOf(name),1);}
+                SITES[ri][ck]=vals.join(' | ');
+                msRefresh(wrap,vals);
+                if(ck==='auditors'){
+                  var suggested=suggestTransport(SITES[ri].country,SITES[ri].auditors);
+                  if(suggested&&suggested!==SITES[ri].transport){
+                    SITES[ri].transport=suggested;
+                    var tSel=document.querySelector('select[data-ri="'+ri+'"][data-ck="transport"]');
+                    if(tSel){
+                      tSel.value=suggested;
+                      tSel.dispatchEvent(new Event('change'));
+                    }
+                  }
+                }
+                if(ck==='auditType'){applyAuditTypeToEvents(SITES[ri]);syncAllViews();}
+                else{saveSites();}
+              };
+              var nameNode=document.createElement('span');
+              nameNode.style.cssText='flex:1';
+              nameNode.textContent=name;
+              lbl.appendChild(cb);lbl.appendChild(nameNode);
+              if(ck==='auditors'){
+                var ai=auditorInfo(name);
+                if(ai){
+                  var sub=document.createElement('span');
+                  sub.style.cssText='font-size:9px;color:#999;margin-left:4px;white-space:nowrap';
+                  var regionFlag=ai.region==='South'?'🌎':'🌎';
+                  sub.textContent=ai.city+' · '+ai.country;
+                  lbl.appendChild(sub);
+                }
+              }
+              dd.appendChild(lbl);
+            });
+            // ── Campo "Adicionar auditor" (apenas para campo auditors) ──
+            if(ck==='auditors'){
+              var sep=document.createElement('div');
+              sep.style.cssText='border-top:1px solid #eee;margin:6px 4px 4px;';
+              dd.appendChild(sep);
+              var addRow=document.createElement('div');
+              addRow.style.cssText='display:flex;align-items:center;gap:4px;padding:4px 8px;';
+              var addInput=document.createElement('input');
+              addInput.type='text';
+              addInput.placeholder='＋ Novo auditor...';
+              addInput.style.cssText='flex:1;border:1px solid #ccc;border-radius:4px;padding:3px 6px;font-size:11px;outline:none;';
+              var addBtn=document.createElement('button');
+              addBtn.textContent='OK';
+              addBtn.style.cssText='background:#FFE600;border:none;border-radius:4px;padding:3px 8px;font-size:11px;font-weight:700;cursor:pointer;';
+              addBtn.onclick=function(e){
+                e.stopPropagation();
+                var newName=addInput.value.trim();
+                if(!newName)return;
+                // Add to col.opts if not already there
+                if(!col.opts.includes(newName))col.opts.push(newName);
+                // Add to selected vals
+                if(!vals.includes(newName))vals.push(newName);
+                SITES[ri][ck]=vals.join(' | ');
+                msRefresh(wrap,vals);
+                saveSites();
+                dd.remove();
+              };
+              addInput.onkeydown=function(e){if(e.key==='Enter')addBtn.click();};
+              addRow.appendChild(addInput);
+              addRow.appendChild(addBtn);
+              dd.appendChild(addRow);
+            }
+            document.body.appendChild(dd);
+            setTimeout(function(){
+              document.addEventListener('click',function closeDd(ev){
+                if(!dd.contains(ev.target)){dd.remove();document.removeEventListener('click',closeDd);}
+              });
+            },10);
+          };
+        })(msWrap,msVals,realIdx,col.key);
+        td.style.padding='2px 4px';
+        td.appendChild(msWrap);
+      } else if(col.type==='select'){
+        const sel=document.createElement('select');
+        col.opts.forEach(o=>{
+          const opt=document.createElement('option');
+          opt.value=o;opt.textContent=o==='car'?L('transport_car'):o==='air'?L('transport_air'):o;
+          if(s[col.key]===o)opt.selected=true;
+          sel.appendChild(opt);
+        });
+        const STATUS_COLORS={'Concluído':'#2E7D32','Em Andamento':'#1565C0','Atrasado':'#C62828','Planejado':'#E65100','':''};
+        sel.dataset.ri=realIdx; sel.dataset.ck=col.key;
+        sel.style.textAlign=col.align||'center';
+        function applyStatusColor(el,v){
+          if(col.key==='statusOverride'){
+            el.style.color=STATUS_COLORS[v]||'#555';
+            el.style.fontWeight=v?'700':'400';
+            el.style.background=v?(STATUS_COLORS[v]+'18'):'';
+          }
+        }
+        applyStatusColor(sel,sel.value);
+        sel.onchange=()=>{SITES[realIdx][col.key]=sel.value;applyStatusColor(sel,sel.value);syncAllViews();};
+        td.appendChild(sel);
+      } else {
+        const inp=document.createElement('input');
+        inp.type=col.type==='date'?'date':'text';
+        inp.value=s[col.key]||'';
+        inp.style.textAlign=col.align||'center';
+        inp.onchange=()=>{SITES[realIdx][col.key]=inp.value;if(col.key==='auditDate')applyAuditTypeToEvents(SITES[realIdx]);syncAllViews();};
+        td.appendChild(inp);
+      }
+      tr.appendChild(td);
+    });
+    const tdDel=document.createElement('td');
+    const btn=document.createElement('button');
+    btn.className='ed-del-btn';btn.textContent='🗑';
+    btn.onclick=()=>{if(confirm('Remover '+s.code+'?')){SITES.splice(realIdx,1);syncAllViews();}};
+    tdDel.appendChild(btn);tr.appendChild(tdDel);
+    tbody.appendChild(tr);
+  });
+  // Add row footer
+  tbody.insertAdjacentHTML('beforeend',`<tr><td colspan="${ED_COLS.length+1}" class="ed-add-row" onclick="edAddRow()">${L('add_row')}</td></tr>`);
+}
+
+function edAddRow(){
+  const maxId=Math.max(...SITES.map(s=>s.id),100)+1;
+  SITES.push({id:maxId,code:'NEW'+maxId,region:'SA-MLB',country:'BR',flag:'🇧🇷',
+    state:'SP',city:'Nova Cidade',classification:'Metro Intra',transport:'car',
+    transportNote:'A confirmar',auditors:'Humberto',auditorCount:1,
+    events:[{type:'metro-ass',start:'2026-09-01',end:'2026-09-01',label:'Ass.Op.',scope:'Assessment'}]});
+  syncAllViews();
+  document.getElementById('tab-editor').scrollTop=99999;
+}
+
+function edExportCSV(){
+  const header=ED_COLS.map(c=>c.label).join(',');
+  const rows=SITES.map(s=>ED_COLS.map(c=>`"${(s[c.key]||'').toString().replace(/"/g,'""')}"`).join(','));
+  const csv=[header,...rows].join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent('﻿'+csv);
+  a.download='Std_Assurance_Sites_2026.csv';a.click();
+}
+
+function edReset(){
+  if(confirm('Restaurar dados originais? Todas as alterações serão perdidas.')){
+    SITES=SITES_DEFAULT.map(s=>({...s,events:s.events.map(e=>({...e}))}));
+    try{localStorage.removeItem('audit_sites_v2');}catch(e){}
+    syncAllViews();
+  }
+}
+
+// Maps editor auditType label → event type code
+const AUDIT_TYPE_MAP={
+  'Auditoria Regional':'full-ar',
+  'Assessment Operativo':'full-ao',
+  'Self Assessment':'metro-sa'
+};
+const AUDIT_LABEL_MAP={'full-ar':'Aud.','full-ao':'Ass.Op.','metro-sa':'SA'};
+
+function applyAuditTypeToEvents(s){
+  const primaryType=s.auditType?(s.auditType.split(' | ')[0].trim()):null;
+  const newEvType=primaryType?AUDIT_TYPE_MAP[primaryType]:null;
+  if(!newEvType)return;
+  // Update the first non-done/non-golive event
+  const mainEv=s.events.find(e=>e.type!=='done'&&e.type!=='golive');
+  if(mainEv){
+    mainEv.type=newEvType;
+    mainEv.label=AUDIT_LABEL_MAP[newEvType]||mainEv.label;
+    if(s.auditDate)mainEv.start=s.auditDate;
+  }
+}
+
+function syncAllViews(){
+  updateKPIs();
+  // Rebuild gantt
+  const body=document.getElementById('gantt-body');
+  body.innerHTML='';
+  document.getElementById('month-hdr').innerHTML='';
+  buildGanttHeader();
+  buildGanttRows();
+  // Rebuild overlap
+  document.getElementById('ov-body').innerHTML='';
+  buildOverlap();
+  // Rebuild explorer
+  renderExplorer();
+  // Rebuild exec
+  buildExecSummary();
+  // Rebuild editor rows
+  renderEditorRows();
+  document.getElementById('ed-status').textContent='✓ Sincronizado às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  saveSites();
+}
+
+// ================================================================
+// TAB SWITCHING
+// ================================================================
+function switchTab(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='exec'&&!document.getElementById('exec-grid').children.length)buildExecSummary();
+  if(id==='editor'&&!document.getElementById('ed-tbody').children.length)buildEditor();
+  if(id==='explorer'&&!document.getElementById('exp-filters').children.length){buildExplorerFilters();renderExplorer();}
+  if(id==='desl')buildDeslocamento();
+}
+
+// ================================================================
+// INIT
+// ================================================================
+
+// ================================================================
+// DESLOCAMENTO TAB
+// ================================================================
+var deslFilter={region:'all',transport:'all',auditor:'all'};
+
+function buildDeslocamento(){
+  var fb=document.getElementById('desl-filter-bar');
+  var c=document.getElementById('desl-content');
+  if(!c)return;
+
+  // Filter bar (DOM manipulation)
+  if(fb&&!fb.children.length){
+    function mkDFLabel(t){var s=document.createElement('span');s.textContent=t;s.style.cssText='font-size:10px;font-weight:700;color:#888';fb.appendChild(s);}
+    function mkDFChip(lbl,onFn,startOn,extra){
+      var b=document.createElement('button');
+      b.className='ed-fchip'+(startOn?' ed-fchip-on':'');
+      b.textContent=lbl;
+      if(extra)b.style.cssText=extra;
+      b.onclick=function(){onFn(b);};
+      fb.appendChild(b);
+      return b;
+    }
+    mkDFLabel('REGIÃO:');
+    mkDFChip('Todas',function(b){deslFilter.region='all';document.querySelectorAll('#desl-filter-bar .ed-fchip').forEach(function(x){if(x.textContent==='Todas'||x.textContent==='North'||x.textContent==='South')x.classList.remove('ed-fchip-on');});b.classList.add('ed-fchip-on');buildDeslocamento();},true);
+    mkDFChip('North',function(b){deslFilter.region='North';document.querySelectorAll('#desl-filter-bar .ed-fchip').forEach(function(x){if(x.textContent==='Todas'||x.textContent==='North'||x.textContent==='South')x.classList.remove('ed-fchip-on');});b.classList.add('ed-fchip-on');buildDeslocamento();},'','color:#BF360C;border-color:#E65100');
+    mkDFChip('South',function(b){deslFilter.region='South';document.querySelectorAll('#desl-filter-bar .ed-fchip').forEach(function(x){if(x.textContent==='Todas'||x.textContent==='North'||x.textContent==='South')x.classList.remove('ed-fchip-on');});b.classList.add('ed-fchip-on');buildDeslocamento();},'','color:#1B5E20;border-color:#2E7D32');
+    mkDFLabel('TIPO:');
+    mkDFChip('Todos',function(b){deslFilter.transport='all';document.querySelectorAll('#desl-filter-bar .ed-fchip').forEach(function(x){if(['Todos','🚗 Terrestre','✈ Aéreo'].includes(x.textContent))x.classList.remove('ed-fchip-on');});b.classList.add('ed-fchip-on');buildDeslocamento();},false);
+    mkDFChip('🚗 Terrestre',function(b){deslFilter.transport='car';document.querySelectorAll('#desl-filter-bar .ed-fchip').forEach(function(x){if(['Todos','🚗 Terrestre','✈ Aéreo'].includes(x.textContent))x.classList.remove('ed-fchip-on');});b.classList.add('ed-fchip-on');buildDeslocamento();},'','color:#2E7D32;border-color:#2E7D32');
+    mkDFChip('✈ Aéreo',function(b){deslFilter.transport='air';document.querySelectorAll('#desl-filter-bar .ed-fchip').forEach(function(x){if(['Todos','🚗 Terrestre','✈ Aéreo'].includes(x.textContent))x.classList.remove('ed-fchip-on');});b.classList.add('ed-fchip-on');buildDeslocamento();},'','color:#1565C0;border-color:#1565C0');
+    // Set defaults
+    fb.querySelectorAll('.ed-fchip')[0].classList.add('ed-fchip-on');
+    fb.querySelectorAll('.ed-fchip')[3].classList.add('ed-fchip-on');
+  }
+
+  // Generate all trips
+  var allTrips=[];
+  var CLC={'Full':'#34A853','Metro Std':'#E65100','Metro Intra':'#4285F4','Darkstore':'#9C27B0'};
+  SITES.forEach(function(s){
+    if(!s.auditors)return;
+    var names=s.auditors.split(' | ').filter(Boolean);
+    names.forEach(function(name){
+      var ai=auditorInfo(name);
+      allTrips.push({auditor:name,ai:ai,fc:s.code,city:s.city,country:s.country,
+        transport:s.transport||'car',date:s.auditDate,
+        classification:s.classification,status:siteStatus(s),site:s});
+    });
+  });
+
+  // Apply filters
+  var trips=allTrips.filter(function(t){
+    if(deslFilter.region!=='all'&&getRegion(t.country)!==deslFilter.region)return false;
+    if(deslFilter.transport!=='all'&&t.transport!==deslFilter.transport)return false;
+    return true;
+  });
+  trips.sort(function(a,b){if(!a.date)return 1;if(!b.date)return -1;return new Date(a.date)-new Date(b.date);});
+
+  // Summary stats (filtered)
+  var nAir=trips.filter(function(t){return t.transport==='air';}).length;
+  var nCar=trips.filter(function(t){return t.transport==='car';}).length;
+
+  // Summary HTML
+  var summHtml='<div class="desl-summary">'
+    +'<div class="desl-kpi"><span class="desl-kpi-v">'+trips.length+'</span><span class="desl-kpi-l">Total Viagens</span></div>'
+    +'<div style="width:1px;height:36px;background:#e0e0e0;margin:0 4px"></div>'
+    +'<div class="desl-kpi"><span class="desl-kpi-v" style="color:#1565C0">'+nAir+'</span><span class="desl-kpi-l">✈ Aéreas</span></div>'
+    +'<div class="desl-kpi"><span class="desl-kpi-v" style="color:#2E7D32">'+nCar+'</span><span class="desl-kpi-l">🚗 Terrestres</span></div>'
+    +'<span style="margin-left:auto;font-size:10px;color:#aaa">de '+allTrips.length+' viagens totais</span>'
+    +'</div>';
+
+  // Table HTML
+  var STATUS_C={done:'#2E7D32',late:'#C62828',urgent:'#E65100',ok:'#1565C0',tbd:'#999'};
+  var STATUS_L={done:'✅ Concluído',late:'⚠ Atrasado',urgent:'🔔 Urgente',ok:'⏱ Previsto',tbd:'—'};
+  var tHead='<thead><tr style="background:#f0f2f5;border-bottom:2px solid #dde">'
+    +'<th style="padding:7px 10px;text-align:left;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">Auditor / Origem</th>'
+    +'<th style="padding:7px 10px;text-align:left;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">Destino</th>'
+    +'<th style="padding:7px 10px;text-align:center;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">FC</th>'
+    +'<th style="padding:7px 10px;text-align:center;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">Tipo</th>'
+    +'<th style="padding:7px 10px;text-align:center;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">Data Prevista</th>'
+    +'<th style="padding:7px 10px;text-align:center;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">Classificação</th>'
+    +'<th style="padding:7px 10px;text-align:center;font-size:9px;color:#666;font-weight:800;text-transform:uppercase">Status</th>'
+    +'</tr></thead>';
+  var tRows=trips.length?trips.map(function(t){
+    var origin=t.ai?(t.ai.city+', '+t.ai.country):'—';
+    var roleTag=t.ai&&t.ai.role==='Auditor Líder'?'<span style="font-size:8px;background:#E65100;color:#fff;border-radius:6px;padding:0 4px;margin-left:4px;vertical-align:middle">Líder</span>':'';
+    var transBadge=t.transport==='air'
+      ?'<span style="background:#E3F2FD;color:#1565C0;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">✈ Aéreo</span>'
+      :'<span style="background:#E8F5E9;color:#2E7D32;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">🚗 Terrestre</span>';
+    var dateStr=t.date?new Date(t.date+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'}):'—';
+    var clr=CLC[t.classification]||'#666';
+    var ccLow=t.country.toLowerCase();
+    return '<tr class="desl-row" style="border-bottom:1px solid #f0f0f0">'
+      +'<td style="padding:7px 10px;font-size:11px"><strong>'+t.auditor+'</strong>'+roleTag+'<br><span style="font-size:9px;color:#999">'+origin+'</span></td>'
+      +'<td style="padding:7px 10px;font-size:11px">'+t.city+'<br><span style="font-size:9px;color:#999">'+t.country+'</span></td>'
+      +'<td style="padding:7px 10px;text-align:center;font-size:11px;font-weight:800;color:#1A73E8;font-family:monospace">'+t.fc+'</td>'
+      +'<td style="padding:7px 10px;text-align:center">'+transBadge+'</td>'
+      +'<td style="padding:7px 10px;text-align:center;font-size:10px;color:#555">'+dateStr+'</td>'
+      +'<td style="padding:7px 10px;text-align:center;font-size:10px;font-weight:700;color:'+clr+'">'+t.classification+'</td>'
+      +'<td style="padding:7px 10px;text-align:center;font-size:10px;font-weight:700;color:'+STATUS_C[t.status]+'">'+STATUS_L[t.status]+'</td>'
+      +'</tr>';
+  }).join(''):'<tr><td colspan="7" style="text-align:center;padding:32px;color:#bbb;font-size:13px">Nenhuma viagem encontrada</td></tr>';
+  var tableHtml='<div style="overflow-x:auto;margin:12px 16px 0">'
+    +'<table style="width:100%;border-collapse:collapse">'+tHead+'<tbody>'+tRows+'</tbody></table>'
+    +'</div>';
+
+  // Suggestions: same auditor, same country, within 21 days
+  var audTrips={};
+  allTrips.filter(function(t){return t.date;}).forEach(function(t){
+    if(!audTrips[t.auditor])audTrips[t.auditor]=[];
+    audTrips[t.auditor].push(t);
+  });
+  var combos=[];
+  Object.keys(audTrips).forEach(function(aud){
+    var ts=audTrips[aud].slice().sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+    for(var i=0;i<ts.length-1;i++){
+      var diff=Math.round((new Date(ts[i+1].date)-new Date(ts[i].date))/86400000);
+      if(diff>=0&&diff<=21&&ts[i].country===ts[i+1].country)
+        combos.push({aud:aud,t1:ts[i],t2:ts[i+1],diff:diff});
+    }
+  });
+  var alertsWrong=allTrips.filter(function(t){return t.ai&&t.ai.country!==t.country&&t.transport==='car';});
+
+  var insightHtml='';
+  if(combos.length||alertsWrong.length){
+    insightHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 16px 16px">';
+    if(combos.length){
+      var cItems=combos.slice(0,6).map(function(s){
+        var d1=new Date(s.t1.date+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+        var d2=new Date(s.t2.date+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+        return '<div style="padding:5px 10px;border-left:3px solid #1565C0;margin-bottom:5px;background:#F8F9FF;border-radius:0 6px 6px 0;font-size:10px">'
+          +'<strong style="color:#1565C0">'+s.aud+'</strong>: '+s.t1.fc+' ('+d1+') + '+s.t2.fc+' ('+d2+') — '+s.diff+' dias</div>';
+      }).join('');
+      insightHtml+='<div style="background:#fff;border:1px solid #dde;border-radius:8px;padding:12px">'
+        +'<div style="font-size:11px;font-weight:800;color:#1565C0;margin-bottom:8px">🔗 Combinar Visitas (mesmo país ≤21 dias)</div>'+cItems+'</div>';
+    }
+    if(alertsWrong.length){
+      var aItems=alertsWrong.slice(0,6).map(function(t){
+        return '<div style="padding:5px 10px;border-left:3px solid #E65100;margin-bottom:5px;background:#FFF8F0;border-radius:0 6px 6px 0;font-size:10px">'
+          +'<strong style="color:#E65100">'+t.auditor+'</strong> ('+t.ai.country+') → '+t.fc+' ('+t.country+') — revisar deslocamento</div>';
+      }).join('');
+      insightHtml+='<div style="background:#fff;border:1px solid #dde;border-radius:8px;padding:12px">'
+        +'<div style="font-size:11px;font-weight:800;color:#E65100;margin-bottom:8px">⚠ Deslocamento Incompatível</div>'+aItems+'</div>';
+    }
+    insightHtml+='</div>';
+  }
+
+  c.innerHTML=summHtml+tableHtml+insightHtml;
+}
+
+
+function edBackupJSON(){
+  var data=SITES.map(function(s){
+    var o={};
+    ED_COLS.forEach(function(c){o[c.key]=s[c.key]||'';});
+    return o;
+  });
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  var d=new Date();
+  a.download='audit_backup_'+d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2)+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function edRestoreJSON(inp){
+  if(!inp.files||!inp.files[0])return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!Array.isArray(data)){alert('Arquivo inválido.');return;}
+      var count=0;
+      data.forEach(function(saved){
+        var site=SITES.find(function(s){return s.code===saved.code;});
+        if(site){
+          ED_COLS.forEach(function(c){if(saved[c.key]!==undefined)site[c.key]=saved[c.key];});
+          count++;
+        }
+      });
+      saveSites();
+      buildEditor();
+      alert(count+' sites restaurados com sucesso!');
+    }catch(err){alert('Erro ao ler arquivo: '+err.message);}
+  };
+  reader.readAsText(inp.files[0]);
+  inp.value='';
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  // Apply saved language to static elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n'); var v=L(k); if(v)el.textContent=v;
+  });
+  document.querySelectorAll('.tab[data-tab-id]').forEach(function(b){
+    var tid=b.getAttribute('data-tab-id'); var v=L('tab_'+tid); if(v)b.textContent=v;
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('lang-btn-on', b.getAttribute('data-lang')===lang);
+  });
+  document.getElementById('today-lbl').textContent=
+    TODAY.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
+  buildGanttHeader();
+  buildGanttRows();
+  buildOverlap();
+  updateKPIs();
+  buildExplorerFilters();
+  renderExplorer();
+});
+</script>
+</body>
+</html>
